@@ -27,6 +27,12 @@ class Multiset[T](elementCounts: Map[T, Int]) {
 
   def without(element: T) = Multiset(mappable - element)
 
+  def +(element: T) = {
+    val count = if (mappable.contains(element)) mappable(element) + 1 else 1
+
+    Multiset(mappable + (element -> count))
+  }
+
   override def hashCode() = mappable.hashCode()
 
   override def equals(that: Any) = that match {
