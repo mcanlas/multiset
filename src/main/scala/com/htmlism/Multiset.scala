@@ -9,13 +9,13 @@ object Multiset {
 class Multiset[T](elementCounts: Map[T, Int]) {
   private val mappable = elementCounts.filter { case (k, count) => count > 0 }
 
+  def apply(element: T) = if (mappable.contains(element)) mappable(element) else 0
+
   def size = mappable.values.sum
 
   def isEmpty = size == 0
 
   def contains(element: T) = mappable.contains(element)
-
-  def count(element: T) = if (mappable.contains(element)) mappable(element) else 0
 
   def toList = mappable.keys.toList.flatMap { k =>
     List.fill(mappable(k))(k)

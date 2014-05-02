@@ -13,7 +13,7 @@ class MultisetSpec extends Specification {
     }
 
     "have a count of zero for some element" in {
-      set.count(sampleElement) === 0
+      set(sampleElement) === 0
     }
 
     "be equal to itself, like a value class" in {
@@ -44,7 +44,7 @@ class MultisetSpec extends Specification {
     }
 
     "have a count of one for that thing" in {
-      set.count(sampleElement) === 1
+      set(sampleElement) === 1
     }
   }
 
@@ -59,8 +59,8 @@ class MultisetSpec extends Specification {
       val maximizedSet = set.withMaximum(1)
 
       maximizedSet.size === 2
-      maximizedSet.count("apple") === 1
-      maximizedSet.count("orange") === 1
+      maximizedSet("apple") === 1
+      maximizedSet("orange") === 1
     }
 
     "be empty when maxed at 0" in {
