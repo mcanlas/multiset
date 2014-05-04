@@ -4,6 +4,8 @@ object Multiset {
   def apply[T](elements: (T, Int)*) = new Multiset(Map(elements: _*))
 
   def apply[T](elements: Map[T, Int]) = new Multiset(elements)
+
+  def empty[T]: Multiset[T] = Multiset()
 }
 
 class Multiset[T](elementCounts: Map[T, Int]) {
