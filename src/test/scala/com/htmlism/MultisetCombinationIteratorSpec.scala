@@ -16,6 +16,7 @@ object MultisetCombinationIteratorSpec extends Specification {
   "An empty library" should {
     "yield no decks" in {
       new TestIterator(Multiset.empty, 0).size === 0
+      new TestIterator(Multiset.empty, 1).size === 0
     }
   }
 }
