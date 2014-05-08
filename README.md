@@ -30,4 +30,4 @@ Included with the collection class is an iterator for submultisets of a given mu
 Colophon
 --------
 
-I was motivated to create this framework to more easily generate and analyze combinations of cards in collectable card games like Magic: The Gathering and Hearthstone.
+I was motivated to create this framework to more easily generate and analyze combinations of cards in collectable card games like *Magic: The Gathering* and *Hearthstone*.
