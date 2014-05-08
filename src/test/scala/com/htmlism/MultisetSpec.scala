@@ -3,10 +3,10 @@ package com.htmlism
 import org.specs2.mutable.Specification
 
 class MultisetSpec extends Specification {
-  val sampleElement = "foo"
+  val sampleElement = 'foo
 
   "An empty multiset" should {
-    val set = Multiset[String]()
+    val set = Multiset[Symbol]()
 
     "have a size of zero" in {
       set.size === 0
@@ -49,7 +49,7 @@ class MultisetSpec extends Specification {
   }
 
   "A multiset of two and two" should {
-    val set = Multiset("apple" -> 2, "orange" -> 3)
+    val set = Multiset('apple -> 2, 'orange -> 3)
 
     "have size four" in {
       set.size === 5
@@ -59,8 +59,8 @@ class MultisetSpec extends Specification {
       val maximizedSet = set.withMaximum(1)
 
       maximizedSet.size === 2
-      maximizedSet("apple") === 1
-      maximizedSet("orange") === 1
+      maximizedSet('apple) === 1
+      maximizedSet('orange) === 1
     }
 
     "be empty when maxed at 0" in {
@@ -68,7 +68,7 @@ class MultisetSpec extends Specification {
     }
 
     "have size two, without the second element" in {
-      set.without("orange").size === 2
+      set.without('orange).size === 2
     }
   }
 }
