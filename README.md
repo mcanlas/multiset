@@ -20,6 +20,10 @@ moreFruits.elements == Set('strawberry, 'orange, 'apple)
 
 val rosales = moreFruits without 'orange
 rosales == Multiset('strawberry -> 1, 'apple -> 2)
+
+val yogurt = Multiset('strawberry -> 4, 'banana -> 3)
+val strawberryHeaven = rosales ++ yogurt
+strawberryHeaven('strawberry) == 5
 ```
 
 Combinatorics

@@ -35,6 +35,16 @@ class Multiset[T](elementCounts: Map[T, Int]) {
     Multiset(mappable + (element -> count))
   }
 
+  def ++(that: Multiset[T]) = {
+    val keys = (elements ++ that.elements).toList // relaxing the underlying uniqueness constraint for "performance"
+
+    val pairs = for (k <- keys) yield {
+      k -> (this(k) + that(k))
+    }
+
+    Multiset(pairs: _*)
+  }
+
   override def hashCode() = mappable.hashCode()
 
   override def equals(that: Any) = that match {

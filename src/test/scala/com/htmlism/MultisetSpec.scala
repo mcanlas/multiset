@@ -70,5 +70,11 @@ class MultisetSpec extends Specification {
     "have size two, without the second element" in {
       set.without('orange).size === 2
     }
+
+    "support merging" in {
+      val moreFruits = Multiset('strawberry -> 1, 'apple -> 4)
+
+      set ++ moreFruits === Multiset('apple -> 6, 'strawberry -> 1, 'orange -> 3)
+    }
   }
 }
