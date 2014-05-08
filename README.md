@@ -8,7 +8,7 @@ As of version 2.11, Scala's collections framework does not include multisets. Th
 Usage
 -----
 
-```
+```scala
 import com.htmlism.Multiset
 
 val fruits = Multiset('apple -> 2, 'orange -> 3)
