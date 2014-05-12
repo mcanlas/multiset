@@ -5,6 +5,8 @@ A **multiset** is a set with duplicate members.
 
 As of version 2.11, Scala's collections framework does not include multisets. This implementation seeks to fill that void.
 
+This implementation of a multiset does not exhibit any unique performance characteristics. It's actually just a convenience wrapper around `Map[T, Int]`.
+
 Usage
 -----
 
