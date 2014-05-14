@@ -12,6 +12,7 @@ object MultisetCombinationIteratorSpec extends Specification {
   }
 
   val emptySet = multi()
+  val someSet  = multi(5, 4, 7)
 
   "An empty library" should {
     "yield no decks" in {
@@ -19,5 +20,17 @@ object MultisetCombinationIteratorSpec extends Specification {
       new MultisetCombinationIterator(emptySet, 1).size === 0
       new MultisetCombinationIterator(emptySet, 3).size === 0
     }
+  }
+
+  "An iterator with chosen size smaller than the required size" should {
+    "yield no decks" in {
+      new MultisetCombinationIterator(emptySet, 5, someSet).size === 0
+    }
+  }
+
+  "An iterator with chosen size equal to the required size" should {
+    "yield the required set" in {
+      new MultisetCombinationIterator(emptySet, someSet.size, someSet).toList === someSet :: Nil
+    }.pendingUntilFixed
   }
 }
