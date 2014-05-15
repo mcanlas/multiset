@@ -20,10 +20,6 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
           if (count > 1) {
             count = count - 1
 
-            if (count + remainingSet.size == choose) {
-              println("hello")
-            }
-
             assert(count + remainingSet.size >= choose)
 
             reloadSubIterator()
