@@ -36,7 +36,7 @@ Included with the collection class is an iterator for submultisets of a given mu
 ```scala
 import com.htmlism.MultisetCombinationIterator
 
-val fruits = Multiset('apple -> 2, 'orange -> 2, 'strawberry -> 2)
+val fruits = Multiset('apple -> 3, 'orange -> 7, 'strawberry -> 4)
 val combinations = new MultisetCombinationIterator(fruits, 2)
 ```
 
