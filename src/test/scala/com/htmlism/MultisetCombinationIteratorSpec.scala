@@ -33,4 +33,24 @@ object MultisetCombinationIteratorSpec extends Specification {
       new MultisetCombinationIterator(emptySet, someSet.size, someSet).toList === someSet :: Nil
     }
   }
+
+  "An iterator with a given set" should {
+    val bigSet = Multiset(4 -> 3, 7 -> 3, 9 -> 3)
+
+    val answers = List(
+      multi(4, 4, 4),
+      multi(4, 4, 7),
+      multi(4, 4, 9),
+      multi(4, 7, 7),
+      multi(4, 7, 9),
+      multi(4, 9, 9),
+      multi(7, 7, 7),
+      multi(7, 7, 9),
+      multi(7, 9, 9),
+      multi(9, 9, 9))
+
+    "generate the right stuff" in {
+      new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(answers)
+    }
+  }
 }
