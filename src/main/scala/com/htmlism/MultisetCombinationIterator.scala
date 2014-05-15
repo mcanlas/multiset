@@ -26,6 +26,8 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
 
             val next = subIterator.get.next()
 
+            hasNext = subIterator.get.hasNext || count + remainingSet.size + accumulator.size > choose
+
             next
           } else {
             assert(remainingSet.size > 0)
