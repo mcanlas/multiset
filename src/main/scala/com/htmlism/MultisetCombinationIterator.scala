@@ -20,25 +20,17 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
           if (count > 1) {
             count = count - 1
 
-            assert(count + remainingSet.size >= choose)
-
             reloadSubIterator()
-
-            val next = subIterator.get.next()
-
-            hasNext = subIterator.get.hasNext || count + remainingSet.size + accumulator.size > choose
-
-            next
           } else {
-            assert(remainingSet.size > 0)
-
             shiftAndReload()
-
-            if (remainingSet.size == 0)
-              hasNext = false
-
-            subIterator.get.next()
           }
+
+          assert(count + remainingSet.size + accumulator.size >= choose)
+
+          val next = subIterator.get.next()
+          hasNext = subIterator.get.hasNext || count + remainingSet.size + accumulator.size > choose
+
+          next
         }
       case None =>
         if (accumulator.size == choose) {
