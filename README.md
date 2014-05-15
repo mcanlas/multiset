@@ -33,6 +33,13 @@ Combinatorics
 
 Included with the collection class is an iterator for submultisets of a given multiset and length.
 
+```scala
+import com.htmlism.MultisetCombinationIterator
+
+val fruits = Multiset('apple -> 2, 'orange -> 2, 'strawberry -> 2)
+val combinations = new MultisetCombinationIterator(fruits, 2)
+```
+
 Colophon
 --------
 
