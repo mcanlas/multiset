@@ -6,9 +6,9 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
   private var count = 0
   private var subIterator = Option.empty[MultisetCombinationIterator[A]]
 
-  var hasNext = remainingSet.size + accumulator.size + count >= choose
+  var hasNext = accumulator.size <= choose && remainingSet.size + accumulator.size >= choose
 
-  if (remainingSet.size + accumulator.size > choose && accumulator.size != choose)
+  if (remainingSet.size + accumulator.size > choose && accumulator.size < choose)
     shiftAndReload()
 
   def next(): Multiset[A] = if (hasNext) {

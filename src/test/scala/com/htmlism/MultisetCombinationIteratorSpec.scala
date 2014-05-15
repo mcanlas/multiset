@@ -21,9 +21,9 @@ object MultisetCombinationIteratorSpec extends Specification {
     }
   }
 
-  "An iterator with chosen size smaller than the required size" should {
+  "An iterator with a chosen size less than the accumulator size" should {
     "yield no decks" in {
-      new MultisetCombinationIterator(emptySet, 5, someSet).size === 0
+      new MultisetCombinationIterator(emptySet, someSet.size - 1, someSet).size === 0
     }
   }
 
