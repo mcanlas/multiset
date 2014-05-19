@@ -1,10 +1,19 @@
 package com.htmlism
 
 object Multiset {
+  /**
+   * Creates a multiset with the specified elements.
+   */
   def apply[T](elements: (T, Int)*) = new Multiset(Map(elements: _*))
 
+  /**
+   * Creates a multiset with the specified elements.
+   */
   def apply[T](elements: Map[T, Int]) = new Multiset(elements)
 
+  /**
+   * An empty multiset of type T.
+   */
   def empty[T]: Multiset[T] = Multiset()
 }
 
