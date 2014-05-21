@@ -2,7 +2,7 @@ package com.htmlism
 
 import org.specs2.mutable.Specification
 
-object MultisetCombinationIteratorSpec extends Specification {
+class MultisetCombinationIteratorSpec extends Specification {
   def multi(elements: Int*) = {
     var set = Multiset.empty[Int]
 
