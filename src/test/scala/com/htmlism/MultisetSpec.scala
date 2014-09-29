@@ -77,4 +77,10 @@ class MultisetSpec extends Specification {
       set ++ moreFruits === Multiset('apple -> 6, 'strawberry -> 1, 'orange -> 3)
     }
   }
+
+  "As a string, a multiset" should {
+    "look like Multiset(Map(1 -> 2, 3 -> 4))" in {
+      Multiset(1 -> 2, 3 -> 4).toString === "Multiset(Map(1 -> 2, 3 -> 4))"
+    }
+  }
 }
