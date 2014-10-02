@@ -74,7 +74,8 @@ class MultisetSpec extends Specification {
     "support merging" in {
       val moreFruits = Multiset('strawberry -> 1, 'apple -> 4)
 
-      set ++ moreFruits === Multiset('apple -> 6, 'strawberry -> 1, 'orange -> 3)
+      // cannot use specs2 more informative === operator because the two ways to the same map yield different iterators
+      set ++ moreFruits == Multiset('apple -> 6, 'strawberry -> 1, 'orange -> 3)
     }
   }
 

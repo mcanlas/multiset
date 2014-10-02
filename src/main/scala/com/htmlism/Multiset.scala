@@ -17,20 +17,16 @@ object Multiset {
   def empty[T]: Multiset[T] = Multiset()
 }
 
-class Multiset[T](elementCounts: Map[T, Int]) {
+class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
   private val mappable = elementCounts.filter { case (k, count) => count > 0 }
+
+  def iterator = elementCounts.iterator.flatMap { case (k, n)  =>
+    List.fill(n)(k)
+  }
 
   def apply(element: T) = if (mappable.contains(element)) mappable(element) else 0
 
-  def size = mappable.values.sum
-
-  def isEmpty = size == 0
-
   def contains(element: T) = mappable.contains(element)
-
-  def toList = mappable.keys.toList.flatMap { k =>
-    List.fill(mappable(k))(k)
-  }
 
   def elements = mappable.keys
 
