@@ -50,6 +50,8 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
     Multiset(pairs: _*)
   }
 
+  def combinations(n: Int) = new MultisetCombinationIterator(this, n)
+
   override def hashCode() = mappable.hashCode()
 
   override def equals(that: Any) = that match {
