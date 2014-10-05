@@ -27,8 +27,8 @@ class MultisetSpec extends Specification {
 
   "Constructing a multiset with a count less than one" should {
     "yield an empty multiset" in {
-      Multiset(sampleElement -> -1) === Multiset()
-      Multiset(sampleElement -> 0) === Multiset()
+      Multiset.withCounts(sampleElement -> -1) === Multiset()
+      Multiset.withCounts(sampleElement -> 0) === Multiset()
     }
   }
 
@@ -49,7 +49,7 @@ class MultisetSpec extends Specification {
   }
 
   "A multiset of two and two" should {
-    val set = Multiset('apple -> 2, 'orange -> 3)
+    val set = Multiset.withCounts('apple -> 2, 'orange -> 3)
 
     "have size four" in {
       set.size === 5
@@ -72,10 +72,10 @@ class MultisetSpec extends Specification {
     }
 
     "support merging" in {
-      val moreFruits = Multiset('strawberry -> 1, 'apple -> 4)
+      val moreFruits = Multiset.withCounts('strawberry -> 1, 'apple -> 4)
 
       // cannot use specs2 more informative === operator because the two ways to the same map yield different iterators
-      set ++ moreFruits == Multiset('apple -> 6, 'strawberry -> 1, 'orange -> 3)
+      set ++ moreFruits == Multiset.withCounts('apple -> 6, 'strawberry -> 1, 'orange -> 3)
     }
   }
 

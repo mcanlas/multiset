@@ -12,6 +12,11 @@ object Multiset {
   def apply[T](elements: Map[T, Int]) = new Multiset(elements)
 
   /**
+   * Creates a multiset with the specified element counts.
+   */
+  def withCounts[T](elements: (T, Int)*) = new Multiset(Map(elements: _*))
+
+  /**
    * An empty multiset of type T.
    */
   def empty[T]: Multiset[T] = Multiset()
@@ -30,14 +35,14 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
 
   def elements = mappable.keys
 
-  def withMaximum(maximum: Int) = Multiset(mappable.map { case (k, n) => (k, if (n > maximum) maximum else n) })
+  def withMaximum(maximum: Int) = new Multiset(mappable.map { case (k, n) => (k, if (n > maximum) maximum else n) })
 
-  def without(element: T) = Multiset(mappable - element)
+  def without(element: T) = new Multiset(mappable - element)
 
   def +(element: T) = {
     val count = if (mappable.contains(element)) mappable(element) + 1 else 1
 
-    Multiset(mappable + (element -> count))
+    new Multiset(mappable + (element -> count))
   }
 
   def ++(that: Multiset[T]) = {
@@ -47,7 +52,7 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
       k -> (this(k) + that(k))
     }
 
-    Multiset(pairs: _*)
+    new Multiset(pairs.toMap)
   }
 
   def combinations(n: Int) = new MultisetCombinationIterator(this, n)

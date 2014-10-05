@@ -35,7 +35,7 @@ class MultisetCombinationIteratorSpec extends Specification {
   }
 
   "An iterator with a given set, choose 3" should {
-    val bigSet = Multiset(4 -> 3, 7 -> 3, 9 -> 3)
+    val bigSet = Multiset.withCounts(4 -> 3, 7 -> 3, 9 -> 3)
 
     val answers = List(
       multi(4, 4, 4),
