@@ -29,23 +29,23 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
     List.fill(n)(k)
   }
 
-  def apply(element: T) = if (mappable.contains(element)) mappable(element) else 0
+  def apply(element: T): Int = if (mappable.contains(element)) mappable(element) else 0
 
-  def contains(element: T) = mappable.contains(element)
+  def contains(element: T): Boolean = mappable.contains(element)
 
-  def elements = mappable.keys
+  def elements: Iterable[T] = mappable.keys
 
-  def withMaximum(maximum: Int) = new Multiset(mappable.map { case (k, n) => (k, if (n > maximum) maximum else n) })
+  def withMaximum(maximum: Int): Multiset[T] = new Multiset(mappable.map { case (k, n) => (k, if (n > maximum) maximum else n) })
 
-  def without(element: T) = new Multiset(mappable - element)
+  def without(element: T): Multiset[T] = new Multiset(mappable - element)
 
-  def +(element: T) = {
+  def +(element: T): Multiset[T] = {
     val count = if (mappable.contains(element)) mappable(element) + 1 else 1
 
     new Multiset(mappable + (element -> count))
   }
 
-  def ++(that: Multiset[T]) = {
+  def ++(that: Multiset[T]): Multiset[T] = {
     val keys = (elements ++ that.elements).toList // relaxing the underlying uniqueness constraint for "performance"
 
     val pairs = for (k <- keys) yield {
@@ -55,7 +55,7 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
     new Multiset(pairs.toMap)
   }
 
-  def combinations(n: Int) = new MultisetCombinationIterator(this, n)
+  def combinations(n: Int): MultisetCombinationIterator[T] = new MultisetCombinationIterator(this, n)
 
   override def hashCode() = mappable.hashCode()
 
