@@ -13,7 +13,7 @@ Usage
 ```scala
 import com.htmlism.Multiset
 
-val fruits = Multiset('apple -> 2, 'orange -> 3)
+val fruits = Multiset.withCounts('apple -> 2, 'orange -> 3)
 fruits.size == 5
 
 val moreFruits = fruits + 'strawberry
@@ -21,9 +21,9 @@ moreFruits('strawberry) == 1
 moreFruits.elements == Set('strawberry, 'orange, 'apple)
 
 val rosales = moreFruits without 'orange
-rosales == Multiset('strawberry -> 1, 'apple -> 2)
+rosales == Multiset.withCounts('strawberry -> 1, 'apple -> 2)
 
-val yogurt = Multiset('strawberry -> 4, 'banana -> 3)
+val yogurt = Multiset.withCounts('strawberry -> 4, 'banana -> 3)
 val strawberryHeaven = rosales ++ yogurt
 strawberryHeaven('strawberry) == 5
 ```
@@ -36,7 +36,7 @@ Included with the collection class is an iterator for submultisets of a given mu
 ```scala
 import com.htmlism.MultisetCombinationIterator
 
-val fruits = Multiset('apple -> 3, 'orange -> 7, 'strawberry -> 4)
+val fruits = Multiset.withCounts('apple -> 3, 'orange -> 7, 'strawberry -> 4)
 val combinations = new MultisetCombinationIterator(fruits, 2)
 ```
 
