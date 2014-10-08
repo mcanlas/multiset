@@ -33,7 +33,7 @@ class MultisetSpec extends Specification {
   }
 
   "A multiset of one thing" should {
-    val set = Multiset(sampleElement -> 1)
+    val set = Multiset(sampleElement)
 
     "have size one" in {
       set.size === 1
@@ -79,9 +79,9 @@ class MultisetSpec extends Specification {
     }
   }
 
-  "As a string, a multiset" should {
-    "look like Multiset(Map(1 -> 2, 3 -> 4))" in {
-      Multiset(1 -> 2, 3 -> 4).toString === "Multiset(Map(1 -> 2, 3 -> 4))"
+  "Creating a multiset via the companion object" should {
+    "yield the right value" in {
+      Multiset('boom, 'boom, 'pow) == new Multiset(Map('boom -> 2, 'pow -> 1))
     }
   }
 }

@@ -3,16 +3,8 @@ package com.htmlism
 import org.specs2.mutable.Specification
 
 class MultisetCombinationIteratorSpec extends Specification {
-  def multi(elements: Int*) = {
-    var set = Multiset.empty[Int]
-
-    for (e <- elements) set = set + e
-
-    set
-  }
-
   private val empty = Multiset.empty[Int]
-  val someSet  = multi(5, 4, 7)
+  private val someSet = Multiset(5, 4, 7)
 
   "An empty library" should {
     "yield no decks" in {
@@ -38,16 +30,16 @@ class MultisetCombinationIteratorSpec extends Specification {
     val bigSet = Multiset.withCounts(4 -> 3, 7 -> 3, 9 -> 3)
 
     val answers = List(
-      multi(4, 4, 4),
-      multi(4, 4, 7),
-      multi(4, 4, 9),
-      multi(4, 7, 7),
-      multi(4, 7, 9),
-      multi(4, 9, 9),
-      multi(7, 7, 7),
-      multi(7, 7, 9),
-      multi(7, 9, 9),
-      multi(9, 9, 9))
+      Multiset(4, 4, 4),
+      Multiset(4, 4, 7),
+      Multiset(4, 4, 9),
+      Multiset(4, 7, 7),
+      Multiset(4, 7, 9),
+      Multiset(4, 9, 9),
+      Multiset(7, 7, 7),
+      Multiset(7, 7, 9),
+      Multiset(7, 9, 9),
+      Multiset(9, 9, 9))
 
     "generate the right stuff" in {
       new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(answers)
@@ -55,15 +47,15 @@ class MultisetCombinationIteratorSpec extends Specification {
   }
 
   "An iterator with a given set, choose 4" should {
-    val set = multi(4, 4, 7, 7, 3, 3)
+    val set = Multiset(4, 4, 7, 7, 3, 3)
 
     val answers = List(
-      multi(4, 4, 7, 7),
-      multi(4, 4, 7, 3),
-      multi(4, 4, 3, 3),
-      multi(4, 7, 7, 3),
-      multi(4, 7, 3, 3),
-      multi(7, 7, 3, 3))
+      Multiset(4, 4, 7, 7),
+      Multiset(4, 4, 7, 3),
+      Multiset(4, 4, 3, 3),
+      Multiset(4, 7, 7, 3),
+      Multiset(4, 7, 3, 3),
+      Multiset(7, 7, 3, 3))
 
     "generate the right stuff" in {
       new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(answers)

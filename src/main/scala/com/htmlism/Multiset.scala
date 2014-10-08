@@ -4,12 +4,7 @@ object Multiset {
   /**
    * Creates a multiset with the specified elements.
    */
-  def apply[T](elements: (T, Int)*) = new Multiset(Map(elements: _*))
-
-  /**
-   * Creates a multiset with the specified elements.
-   */
-  def apply[T](elements: Map[T, Int]) = new Multiset(elements)
+  def apply[T](elements: T*) = elements.foldLeft(Multiset.empty[T])((m, e) => m + e)
 
   /**
    * Creates a multiset with the specified element counts.
@@ -19,7 +14,7 @@ object Multiset {
   /**
    * An empty multiset of type T.
    */
-  def empty[T]: Multiset[T] = Multiset()
+  def empty[T]: Multiset[T] = new Multiset(Map.empty[T, Int])
 }
 
 class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
@@ -63,6 +58,4 @@ class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
     case set: Multiset[T] => this.mappable == set.mappable
     case _ => false
   }
-
-  override def toString = s"Multiset(${mappable.toString()})"
 }
