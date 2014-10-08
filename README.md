@@ -38,6 +38,7 @@ import com.htmlism.MultisetCombinationIterator
 
 val fruits = Multiset.withCounts('apple -> 3, 'orange -> 7, 'strawberry -> 4)
 val combinations = new MultisetCombinationIterator(fruits, 2)
+val sameCombinations = fruits.combinations(2)
 ```
 
 Colophon
