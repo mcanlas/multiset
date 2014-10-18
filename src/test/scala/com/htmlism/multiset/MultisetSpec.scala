@@ -1,4 +1,4 @@
-package com.htmlism
+package com.htmlism.multiset
 
 import org.specs2.mutable.Specification
 

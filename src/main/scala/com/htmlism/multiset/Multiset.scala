@@ -1,4 +1,4 @@
-package com.htmlism
+package com.htmlism.multiset
 
 object Multiset {
   /**

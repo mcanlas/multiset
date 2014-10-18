@@ -1,4 +1,4 @@
-package com.htmlism
+package com.htmlism.multiset
 
 class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumulator: Multiset[A] = Multiset.empty[A]) extends Iterator[Multiset[A]] {
   private var remainingSet = givenSet withMaximum choose - accumulator.size
