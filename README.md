@@ -11,7 +11,7 @@ Usage
 -----
 
 ```scala
-import com.htmlism.Multiset
+import com.htmlism.multiset._
 
 val fruits = Multiset.withCounts('apple -> 2, 'orange -> 3)
 fruits.size == 5
@@ -34,7 +34,7 @@ Combinatorics
 Included with the collection class is an iterator for submultisets of a given multiset and length.
 
 ```scala
-import com.htmlism.MultisetCombinationIterator
+import com.htmlism.multiset._
 
 val fruits = Multiset.withCounts('apple -> 3, 'orange -> 7, 'strawberry -> 4)
 val combinations = new MultisetCombinationIterator(fruits, 2)
