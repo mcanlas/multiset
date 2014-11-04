@@ -5,16 +5,24 @@ package com.htmlism.multiset
 object Multiset {
   /**
    * Creates a multiset with the specified elements.
+   *
+   * @tparam A The type of the multiset's elements
+   * @param elements A collection of individual elements
    */
   def apply[A](elements: A*): Multiset[A] = elements.foldLeft(Multiset.empty[A])((m, e) => m + e)
 
   /**
    * Creates a multiset with the specified element counts.
+   *
+   * @tparam A The type of the multiset's elements
+   * @param elements A collection of elements paired with their counts
    */
   def withCounts[A](elements: (A, Int)*): Multiset[A] = new Multiset(Map(elements: _*))
 
   /**
-   * An empty multiset of type T.
+   * An empty multiset.
+   *
+   * @tparam A The type of the multiset's elements
    */
   def empty[A]: Multiset[A] = new Multiset(Map.empty[A, Int])
 }
