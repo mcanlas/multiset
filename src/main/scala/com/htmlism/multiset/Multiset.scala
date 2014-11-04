@@ -17,7 +17,9 @@ object Multiset {
   def empty[T]: Multiset[T] = new Multiset(Map.empty[T, Int])
 }
 
-class Multiset[T](elementCounts: Map[T, Int]) extends Iterable[T] {
+class Multiset[T](elementCounts: Map[T, Int])
+  extends Iterable[T]
+  with Function[T, Int] {
   private val mappable = elementCounts.filter { case (k, count) => count > 0 }
 
   def iterator = elementCounts.iterator.flatMap { case (k, n)  =>

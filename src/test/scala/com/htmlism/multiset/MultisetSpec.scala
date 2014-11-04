@@ -46,6 +46,10 @@ class MultisetSpec extends Specification {
     "have a count of one for that thing" in {
       set(sampleElement) === 1
     }
+
+    "act like a function" in {
+      List(sampleElement).map(set) === List(1)
+    }
   }
 
   "A multiset of two and two" should {
