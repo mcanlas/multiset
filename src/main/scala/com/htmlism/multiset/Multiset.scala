@@ -6,12 +6,12 @@ object Multiset {
   /**
    * Creates a multiset with the specified elements.
    */
-  def apply[A](elements: A*) = elements.foldLeft(Multiset.empty[A])((m, e) => m + e)
+  def apply[A](elements: A*): Multiset[A] = elements.foldLeft(Multiset.empty[A])((m, e) => m + e)
 
   /**
    * Creates a multiset with the specified element counts.
    */
-  def withCounts[A](elements: (A, Int)*) = new Multiset(Map(elements: _*))
+  def withCounts[A](elements: (A, Int)*): Multiset[A] = new Multiset(Map(elements: _*))
 
   /**
    * An empty multiset of type T.
