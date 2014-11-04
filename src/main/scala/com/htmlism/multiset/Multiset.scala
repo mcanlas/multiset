@@ -1,5 +1,7 @@
 package com.htmlism.multiset
 
+/** This object provides operations that create `Multiset` values. */
+
 object Multiset {
   /**
    * Creates a multiset with the specified elements.
