@@ -27,6 +27,16 @@ object Multiset {
   def empty[A]: Multiset[A] = new Multiset(Map.empty[A, Int])
 }
 
+/**
+ * A class for immutable multisets, unordered collections of elements.
+ *
+ * Unlike the sets provided in Scala's standard library, multisets can contain duplicate members.
+ * Duplicate members are compactly represented by counts.
+ *
+ * @param elementCounts A collection of elements paired with their counts
+ * @tparam A The type of the multiset's elements
+ */
+
 class Multiset[A](elementCounts: Map[A, Int])
   extends Iterable[A]
   with Function[A, Int] {
