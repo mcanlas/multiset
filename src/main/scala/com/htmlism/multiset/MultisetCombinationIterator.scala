@@ -1,5 +1,22 @@
 package com.htmlism.multiset
 
+/**
+ * This class represents an iterator of n-combination multisets from a source multiset.
+ *
+ * {{{
+ * scala> Multiset('NewYork, 'NewYork, 'London, 'Tokyo).combinations(2).foreach(println)
+ * Multiset('NewYork -> 2)
+ * Multiset('NewYork -> 1, 'London -> 1)
+ * Multiset('NewYork -> 1, 'Tokyo -> 1)
+ * Multiset('London -> 1, 'Tokyo -> 1)
+ * }}}
+ *
+ * @param source The source multiset
+ * @param choose The number of elements to choose
+ * @param requiredSet A multiset to be included with each combination
+ * @tparam A The type of the multiset's elements
+ */
+
 class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredSet: Multiset[A] = Multiset.empty[A]) extends Iterator[Multiset[A]] {
   private var remainingSet = source withMaximum choose - requiredSet.size
   private var currentElement: A = _
