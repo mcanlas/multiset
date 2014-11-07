@@ -27,6 +27,8 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
 
           assert(count + remainingSet.size + accumulator.size >= choose)
 
+          // subIterator must be re-evaluated because it may have been modified since the case match.
+          // don't change `subIterator.get` to `iterator`!
           val next = subIterator.get.next()
           hasNext = subIterator.get.hasNext || count + remainingSet.size + accumulator.size > choose
 
