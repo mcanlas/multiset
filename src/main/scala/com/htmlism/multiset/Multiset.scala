@@ -46,21 +46,69 @@ class Multiset[A](elementCounts: Map[A, Int])
     List.fill(n)(k)
   }
 
+  /**
+   * Returns the number of instances for a given element.
+   *
+   * @param element The element to look for
+   * @return The number of instances
+   */
+
   def apply(element: A): Int = if (mappable.contains(element)) mappable(element) else 0
+
+  /**
+   * Tests if a given element exists in the set
+   *
+   * @param element The element to test
+   * @return `true` if the element exists, `false` otherwise
+   */
 
   def contains(element: A): Boolean = mappable.contains(element)
 
+  /**
+   * Returns a collection of the elements without repetition
+   *
+   * @return A collection of elements
+   */
+
   def elements: Iterable[A] = mappable.keys
+
+  /**
+   * Returns a new multiset with the counts of each element limited to some maximum
+   *
+   * @param maximum The maximum number of instances for each element in the new multiset
+   * @return A multiset with the maximum applied
+   */
 
   def withMaximum(maximum: Int): Multiset[A] = new Multiset(mappable.map { case (k, n) => (k, if (n > maximum) maximum else n) })
 
+  /**
+   * Returns a new multiset without a given element
+   *
+   * @param element The element to exclude from the new multiset
+   * @return A multiset without the specified element
+   */
+
   def without(element: A): Multiset[A] = new Multiset(mappable - element)
+
+  /**
+   * Returns a new multiset with a given element added to it
+   *
+   * @param element The element to add
+   * @return A new multiset including the specified element
+   */
 
   def +(element: A): Multiset[A] = {
     val count = if (mappable.contains(element)) mappable(element) + 1 else 1
 
     new Multiset(mappable + (element -> count))
   }
+
+  /**
+   * Returns the union of this multiset and another
+   *
+   * @param that The other multiset to combine with
+   * @return A new multiset with elements from both sets
+   */
 
   def ++(that: Multiset[A]): Multiset[A] = {
     val keys = elements ++ that.elements
@@ -71,6 +119,13 @@ class Multiset[A](elementCounts: Map[A, Int])
 
     new Multiset(pairs.toMap)
   }
+
+  /**
+   * Returns an iterator of n-combination multisets
+   *
+   * @param n The number of elements to choose
+   * @return An iterator of multisets
+   */
 
   def combinations(n: Int): MultisetCombinationIterator[A] = new MultisetCombinationIterator(this, n)
 
