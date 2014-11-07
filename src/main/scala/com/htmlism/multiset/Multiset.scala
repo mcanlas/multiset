@@ -63,7 +63,7 @@ class Multiset[A](elementCounts: Map[A, Int])
   }
 
   def ++(that: Multiset[A]): Multiset[A] = {
-    val keys = (elements ++ that.elements).toList // relaxing the underlying uniqueness constraint for "performance"
+    val keys = elements ++ that.elements
 
     val pairs = for (k <- keys) yield {
       k -> (this(k) + that(k))
