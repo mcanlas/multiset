@@ -2,7 +2,7 @@ package com.htmlism.multiset
 
 class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumulator: Multiset[A] = Multiset.empty[A]) extends Iterator[Multiset[A]] {
   private var remainingSet = givenSet withMaximum choose - accumulator.size
-  private var currentElement = Option.empty[A] // TODO initial condition is clunky
+  private var currentElement: A = _
   private var count = 0
   private var subIterator = Option.empty[MultisetCombinationIterator[A]]
 
@@ -50,15 +50,15 @@ class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumul
   }
 
   private def shiftAndReload() = {
-    currentElement = Some(remainingSet.elements.toList.head)
-    count = remainingSet(currentElement.get)
+    currentElement = remainingSet.elements.toList.head
+    count = remainingSet(currentElement)
 
-    remainingSet = remainingSet without currentElement.get
+    remainingSet = remainingSet without currentElement
 
     reloadSubIterator()
   }
 
   private def reloadSubIterator() = {
-    subIterator = Some(new MultisetCombinationIterator(remainingSet, choose, accumulator ++ Multiset.withCounts(currentElement.get -> count)))
+    subIterator = Some(new MultisetCombinationIterator(remainingSet, choose, accumulator ++ Multiset.withCounts(currentElement -> count)))
   }
 }
