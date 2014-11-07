@@ -1,7 +1,7 @@
 package com.htmlism.multiset
 
-class MultisetCombinationIterator[A](givenSet: Multiset[A], choose: Int, accumulator: Multiset[A] = Multiset.empty[A]) extends Iterator[Multiset[A]] {
-  private var remainingSet = givenSet withMaximum choose - accumulator.size
+class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, accumulator: Multiset[A] = Multiset.empty[A]) extends Iterator[Multiset[A]] {
+  private var remainingSet = source withMaximum choose - accumulator.size
   private var currentElement: A = _
   private var count = 0
   private var subIterator = Option.empty[MultisetCombinationIterator[A]]
