@@ -18,7 +18,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, accumulat
           iterator.next()
         } else {
           if (count > 1) {
-            count = count - 1
+            count -= 1
 
             reloadSubIterator()
           } else {
