@@ -7,6 +7,15 @@ As of version 2.11, Scala's collections framework does not include multisets. Th
 
 This implementation of a multiset does not exhibit any unique performance characteristics. It's actually just a convenience wrapper around `Map[A, Int]`.
 
+Features
+--------
+
+This library is fully pimped out with Scaladoc [1], so please enjoy the meaningful output of `sbt doc`!
+
+Because `Multiset` extends `Iterable`, it shares a wide array of functionality with Scala's collections framework.
+
+[1] The only methods that aren't documented are those inherited from `Iterable` and `Iterator`.
+
 Usage
 -----
 
