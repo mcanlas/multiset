@@ -2,8 +2,6 @@ name := "multiset"
 
 organization := "com.htmlism"
 
-version := "0.0.1-SNAPSHOT"
-
 autoAPIMappings := true
 
 initialCommands in console := "import com.htmlism.multiset._"
