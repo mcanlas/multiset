@@ -32,18 +32,18 @@ class MultisetSpec extends Specification {
     }
   }
 
-  "A multiset of one thing" should {
+  "A multiset of one element" should {
     val set = Multiset(sampleElement)
 
     "have size one" in {
       set.size === 1
     }
 
-    "contain that thing" in {
+    "contain that element" in {
       set.contains(sampleElement) must beTrue
     }
 
-    "have a count of one for that thing" in {
+    "have a count of one for that element" in {
       set(sampleElement) === 1
     }
 
