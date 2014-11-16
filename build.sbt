@@ -25,5 +25,4 @@ ReleaseKeys.releaseProcess := Seq(
   tagRelease,
   setNextVersion,
   commitNextVersion,
-  pushChanges
-)
+  pushChanges)
