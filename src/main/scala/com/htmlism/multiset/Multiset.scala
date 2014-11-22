@@ -76,17 +76,17 @@ class Multiset[A](elementCounts: Map[A, Int])
   def contains(element: A): Boolean = mappable.contains(element)
 
   /**
-   * Returns a collection of the elements without repetition
+   * Returns a set of the elements
    *
    * {{{
    * scala> Multiset('NewYork, 'London, 'London).elements
-  *  res0: Iterable[Symbol] = Set('NewYork, 'London)
+  *  res0: Set[Symbol] = Set('NewYork, 'London)
    * }}}
    *
    * @return A collection of elements
    */
 
-  def elements: Iterable[A] = mappable.keys
+  def elements: Set[A] = mappable.keys.toSet
 
   /**
    * Returns a new multiset with the counts of each element limited to some maximum
