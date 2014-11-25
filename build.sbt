@@ -8,9 +8,7 @@ autoAPIMappings := true
 
 initialCommands in console := "import com.htmlism.multiset._"
 
-libraryDependencies += "org.specs2" %% "specs2" % "2.4.6" % "test"
-
-resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases" // for specs2
+libraryDependencies += "org.specs2" %% "specs2" % "2.4.11" % "test"
 
 crossScalaVersions := Seq("2.10.4", "2.11.4")
 
