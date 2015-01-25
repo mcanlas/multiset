@@ -18,6 +18,7 @@ class MultisetSpec extends Specification {
 
     "be equal to itself, like a value class" in {
       set === Multiset()
+      set.equals(123) must beFalse
     }
 
     "have an empty list of elements" in {
