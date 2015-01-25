@@ -4,6 +4,7 @@
 * "improved performance" of multiset concatenation
 * added missing scalaz resolver
 * added scoverage support
+* increased test coverage
 
 ## 0.0.1
 initial release
