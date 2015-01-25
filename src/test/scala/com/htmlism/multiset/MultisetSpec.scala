@@ -23,6 +23,10 @@ class MultisetSpec extends Specification {
     "have an empty list of elements" in {
       set.elements === Set()
     }
+
+    "have no combinations of one" in {
+      set.combinations(1).size === 0
+    }
   }
 
   "Constructing a multiset with a count less than one" should {
