@@ -27,6 +27,10 @@ class MultisetSpec extends Specification {
     "have no combinations of one" in {
       set.combinations(1).size === 0
     }
+
+    "act like a value" in {
+      set.hashCode() === Multiset().hashCode()
+    }
   }
 
   "Constructing a multiset with a count less than one" should {
