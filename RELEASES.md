@@ -5,6 +5,7 @@
 * added missing scalaz resolver
 * added scoverage support
 * increased test coverage
+* corrected unit test wording
 
 ## 0.0.1
 initial release

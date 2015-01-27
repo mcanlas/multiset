@@ -6,8 +6,8 @@ class MultisetCombinationIteratorSpec extends Specification {
   private val empty = Multiset.empty[Int]
   private val someSet = Multiset(5, 4, 7)
 
-  "An empty library" should {
-    "yield no decks" in {
+  "An empty iterator" should {
+    "yield no combinations" in {
       new MultisetCombinationIterator(empty, 1).size === 0
       new MultisetCombinationIterator(empty, 3).size === 0
     }
