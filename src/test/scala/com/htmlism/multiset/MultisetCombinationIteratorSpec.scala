@@ -11,6 +11,12 @@ class MultisetCombinationIteratorSpec extends Specification {
       new MultisetCombinationIterator(empty, 1).size === 0
       new MultisetCombinationIterator(empty, 3).size === 0
     }
+
+    "not support iteration" in {
+      {
+        new MultisetCombinationIterator(empty, 1).next()
+      } must throwA[RuntimeException]
+    }
   }
 
   "An iterator with a chosen size less than the accumulator size" should {
