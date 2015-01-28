@@ -56,10 +56,11 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
 
         if (requiredSet.size == choose) {
           requiredSet
-        } else if (remainingSet.size + requiredSet.size == choose) {
-          requiredSet ++ remainingSet
         } else {
-          throw new RuntimeException("could not generate a new set for the base case")
+          // by now, this is the only logical outcome left
+          assert(remainingSet.size + requiredSet.size == choose)
+
+          requiredSet ++ remainingSet
         }
     }
   } else {
