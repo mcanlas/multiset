@@ -6,6 +6,7 @@
 * added scoverage support
 * increased test coverage
 * corrected unit test wording
+* added scalacheck support
 
 ## 0.0.1
 initial release
