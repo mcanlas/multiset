@@ -7,6 +7,7 @@
 * increased test coverage
 * corrected unit test wording
 * added scalacheck support
+* made iteration more space efficient
 
 ## 0.0.1
 initial release

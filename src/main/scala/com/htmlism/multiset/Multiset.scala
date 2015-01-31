@@ -53,8 +53,14 @@ class Multiset[A](elementCounts: Map[A, Int])
   with Function[A, Int] {
   private val mappable = elementCounts.filter { case (k, count) => count > 0 }
 
-  def iterator = elementCounts.iterator.flatMap { case (k, n)  =>
-    List.fill(n)(k)
+  def iterator = mappable.iterator.flatMap { case (k, n)  =>
+    new Iterator[A] {
+      var remaining = n
+
+      def hasNext = remaining > 0
+
+      def next() = { remaining -= 1; k }
+    }
   }
 
   /**
