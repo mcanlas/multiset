@@ -185,6 +185,8 @@ class Multiset[A](elementCounts: Map[A, Int])
 
   def combinations(n: Int): MultisetCombinationIterator[A] = new MultisetCombinationIterator(this, n)
 
+  override val size = mappable.values.sum
+
   override def toString() = "Multiset(" + mappable.map { case (e, n) => s"$e -> $n" }.mkString(", ") + ")"
 
   override def hashCode() = mappable.hashCode()

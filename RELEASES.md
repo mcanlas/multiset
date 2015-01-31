@@ -8,6 +8,7 @@
 * corrected unit test wording
 * added scalacheck support
 * made iteration more space efficient
+* made sizing constant (slowness was visible in large sets)
 
 ## 0.0.1
 initial release
