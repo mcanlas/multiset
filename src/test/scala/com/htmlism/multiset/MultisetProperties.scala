@@ -2,7 +2,7 @@ package com.htmlism.multiset
 
 import org.scalacheck.Properties
 
-class MultisetPropertySpec extends Properties("Multiset") {
+class MultisetProperties extends Properties("Multiset") {
 
   import org.scalacheck.Prop.forAll
 
