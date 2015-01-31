@@ -21,4 +21,8 @@ class MultisetPropertySpec extends Properties("Multiset") {
   property("containment") = forAll { (value: Char) =>
     Multiset()(value) == 0 && Multiset(value)(value) == 1
   }
+
+  property("uniqueness") = forAll { (elements: Seq[Int]) =>
+    Multiset(elements: _*).elements == elements.toSet
+  }
 }
