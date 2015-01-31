@@ -12,4 +12,8 @@ class MultisetPropertySpec extends Properties("Multiset") {
   property("count construction") = forAll { counts: Seq[(String, Int)] =>
     Multiset.withCounts(counts: _*).size == counts.toMap.values.filter(_ > 0).sum
   }
+
+  property("iteration") = forAll { (elements: Seq[Int]) =>
+    Multiset(elements: _*).iterator.toList.sorted == elements.sorted
+  }
 }
