@@ -70,7 +70,7 @@ class Multiset[A](elementCounts: Map[A, Int])
    * @return The number of instances
    */
 
-  def apply(element: A): Int = if (mappable.contains(element)) mappable(element) else 0
+  def apply(element: A): Int = if (contains(element)) mappable(element) else 0
 
   /**
    * Tests if a given element exists in the set
