@@ -4,7 +4,7 @@ import org.scalacheck.Properties
 
 class MultisetProperties extends Properties("Multiset") {
 
-  import org.scalacheck.Prop.forAll
+  import org.scalacheck.Prop.{ forAll, BooleanOperators }
 
   property("sequence construction") = forAll { (elements: Seq[Int]) =>
     Multiset(elements: _*).size == elements.size
@@ -24,5 +24,10 @@ class MultisetProperties extends Properties("Multiset") {
 
   property("uniqueness") = forAll { (elements: Seq[Int]) =>
     Multiset(elements: _*).elements == elements.toSet
+  }
+
+  property("maximum") = forAll { (counts: Seq[(String, Int)], maximum: Int) =>
+    (maximum >= 0 && maximum < (Int.MaxValue / 100)) ==>
+      (Multiset.withCounts(counts: _*).withMaximum(maximum).size <= counts.toMap.count(c => c._2 > 0) * maximum)
   }
 }
