@@ -33,7 +33,7 @@ class MultisetProperties extends Properties("Multiset") {
 
   property("without") = forAll { (element: String, count: Int) =>
     val emptyWithout = Multiset().without(element) == Multiset()
-    val withWithout  = Multiset.withCounts((element, count)).without(element) == Multiset()
+    val withWithout  = Multiset.withCounts(element -> count).without(element) == Multiset()
 
     emptyWithout && withWithout
   }
