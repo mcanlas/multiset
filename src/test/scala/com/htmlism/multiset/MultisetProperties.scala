@@ -60,4 +60,27 @@ class MultisetProperties extends Properties("Multiset") {
     else
       combinations.nonEmpty
   }
+
+  property("to string") = forAll { someElements: Seq[A] =>
+    val set = Multiset(someElements: _*)
+    val string = set.toString()
+
+    val containsAll = set.elements.foldLeft(true) { (acc, e) =>
+      val n = set(e)
+      val contains = string.contains(s"$e -> $n")
+
+      acc && contains
+    }
+
+    val commaOk =
+      if (set.elements.size < 2)
+        true
+      else
+        ", ".r.findAllIn(string).length == set.elements.size - 1
+
+    ("starts with" |: string.startsWith("Multiset(")) &&
+      ("ends with" |: string.endsWith(")")) &&
+      ("contains"  |: containsAll) &&
+      ("commas"    |: commaOk)
+  }
 }
