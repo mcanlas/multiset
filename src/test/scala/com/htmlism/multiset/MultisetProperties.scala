@@ -30,4 +30,11 @@ class MultisetProperties extends Properties("Multiset") {
     (maximum >= 0 && maximum < (Int.MaxValue / 100)) ==>
       (Multiset.withCounts(counts: _*).withMaximum(maximum).size <= counts.toMap.count(c => c._2 > 0) * maximum)
   }
+
+  property("without") = forAll { (element: String, count: Int) =>
+    val emptyWithout = Multiset().without(element) == Multiset()
+    val withWithout  = Multiset.withCounts((element, count)).without(element) == Multiset()
+
+    emptyWithout && withWithout
+  }
 }
