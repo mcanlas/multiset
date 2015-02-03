@@ -51,4 +51,13 @@ class MultisetProperties extends Properties("Multiset") {
       (union(firstElement) == effectiveCount * 2) &&
         (union(secondElement) == effectiveCount)
   }
+
+  property("combinations") = forAll { (elements: Seq[A], n: Int) =>
+    val combinations = Multiset(elements: _*).combinations(n)
+
+    if (n > elements.length || n < 0)
+      combinations.isEmpty
+    else
+      combinations.nonEmpty
+  }
 }
