@@ -37,4 +37,17 @@ class MultisetProperties extends Properties("Multiset") {
 
     emptyWithout && withWithout
   }
+
+  property("union") = forAll { (firstElement: String, secondElement: String, count: Int) =>
+    val firstSet  = Multiset.withCounts(firstElement -> count)
+    val secondSet = Multiset.withCounts(firstElement -> count, secondElement -> count)
+
+    val union = firstSet ++ secondSet
+
+    val effectiveCount = if (count < 0) 0 else count
+
+    (count < Int.MaxValue / 2) ==>
+      (union(firstElement) == effectiveCount * 2) &&
+        (union(secondElement) == effectiveCount)
+  }
 }
