@@ -1,5 +1,7 @@
 package com.htmlism.multiset
 
+import scala.collection.generic.GenericCompanion
+
 /** This object provides operations that create `Multiset` values. */
 
 object Multiset {
@@ -195,6 +197,10 @@ class Multiset[A](elementCounts: Map[A, Int])
     case set: Multiset[A] => this.mappable == set.mappable
     case _ => false
   }
+}
+
+object MultisetNew extends GenericCompanion[MultisetNew] {
+  def newBuilder[A] = ???
 }
 
 trait MultisetNew[A]

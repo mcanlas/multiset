@@ -1,6 +1,9 @@
 package com.htmlism.multiset
 
-object SeqMultiset {
+import scala.collection.generic.GenericCompanion
+
+object SeqMultiset extends GenericCompanion[SeqMultiset] {
+  def newBuilder[A] = ???
 }
 
 class SeqMultiset[A] extends MultisetNew[A] {
