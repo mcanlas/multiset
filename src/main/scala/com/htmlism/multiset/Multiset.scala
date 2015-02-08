@@ -200,7 +200,7 @@ class Multiset[A](elementCounts: Map[A, Int])
 }
 
 object MultisetNew extends GenericCompanion[MultisetNew] {
-  def newBuilder[A] = ???
+  def newBuilder[A] = new IntMultisetBuilder[A]
 }
 
 trait MultisetNew[A]
