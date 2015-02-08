@@ -18,5 +18,5 @@ object SeqMultiset extends GenericCompanion[SeqMultiset] {
 class SeqMultiset[A](elements: Seq[A]) extends MultisetNew[A] {
   def apply(v1: A) = ???
 
-  def iterator = ???
+  def iterator = elements.iterator
 }
