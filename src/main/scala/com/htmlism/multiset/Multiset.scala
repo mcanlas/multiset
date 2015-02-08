@@ -196,3 +196,7 @@ class Multiset[A](elementCounts: Map[A, Int])
     case _ => false
   }
 }
+
+trait MultisetNew[A]
+  extends Iterable[A]
+  with Function[A, Int]
