@@ -204,5 +204,5 @@ object MultisetNew extends GenericCompanion[MultisetNew] {
 }
 
 trait MultisetNew[A]
-  extends Iterable[A]
-  with Function[A, Int]
+  extends Function[A, Int]
+  with Iterable[A]
