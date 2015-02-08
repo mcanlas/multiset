@@ -9,13 +9,13 @@ object SeqMultiset extends GenericCompanion[SeqMultiset] {
 
     def +=(elem: A) = { elements += elem; this }
 
-    def result() = { println(elements); null }
+    def result() = new SeqMultiset(elements)
 
     def clear() = elements.clear()
   }
 }
 
-class SeqMultiset[A] extends MultisetNew[A] {
+class SeqMultiset[A](elements: Seq[A]) extends MultisetNew[A] {
   def apply(v1: A) = ???
 
   def iterator = ???

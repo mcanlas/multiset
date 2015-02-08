@@ -7,7 +7,7 @@ object IntMultiset extends GenericCompanion[IntMultiset] {
   def newBuilder[A] = new IntMultisetBuilder[A]
 }
 
-class IntMultiset[A] extends MultisetNew[A] {
+class IntMultiset[A](elementCounts: collection.Map[A, Int]) extends MultisetNew[A] {
   def apply(v1: A) = ???
 
   def iterator = ???
@@ -28,7 +28,7 @@ class IntMultisetBuilder[A] extends mutable.Builder[A, IntMultiset[A]] {
     this
   }
 
-  def result() = { println(counts); null }
+  def result() = new IntMultiset(counts)
 
   def clear() = counts.clear()
 }
