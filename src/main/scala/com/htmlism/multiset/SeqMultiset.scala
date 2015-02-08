@@ -5,11 +5,13 @@ import scala.collection.mutable
 
 object SeqMultiset extends GenericCompanion[SeqMultiset] {
   def newBuilder[A] = new mutable.Builder[A, SeqMultiset[A]] {
-    def +=(elem: A) = ???
+    private val elements = mutable.ListBuffer[A]()
 
-    def result() = ???
+    def +=(elem: A) = { elements += elem; this }
 
-    def clear() = ???
+    def result() = { println(elements); null }
+
+    def clear() = elements.clear()
   }
 }
 

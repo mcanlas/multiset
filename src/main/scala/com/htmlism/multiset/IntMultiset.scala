@@ -14,9 +14,21 @@ class IntMultiset[A] extends MultisetNew[A] {
 }
 
 class IntMultisetBuilder[A] extends mutable.Builder[A, IntMultiset[A]] {
-  def +=(elem: A) = ???
+  private val counts = mutable.Map[A, Int]()
 
-  def result() = ???
+  def +=(elem: A) = {
+    val count =
+      if (counts.contains(elem))
+        counts(elem)
+      else
+        0
 
-  def clear() = ???
+    counts.update(elem, count + 1)
+
+    this
+  }
+
+  def result() = { println(counts); null }
+
+  def clear() = counts.clear()
 }
