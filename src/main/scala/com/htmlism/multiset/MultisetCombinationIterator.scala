@@ -68,7 +68,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
   }
 
   private def shiftAndReload() = {
-    currentElement = remainingSet.elements.toList.head
+    currentElement = remainingSet.elements.head
     count = remainingSet(currentElement)
 
     remainingSet = remainingSet without currentElement
