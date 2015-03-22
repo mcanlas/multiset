@@ -53,4 +53,4 @@ val sameCombinations = fruits.combinations(2)
 Colophon
 --------
 
-I was motivated to create this framework to more easily generate and analyze combinations of cards in collectable card games like *Magic: The Gathering* and *Hearthstone*.
+I was motivated to create this framework to more easily generate and analyze combinations of cards in collectible card games like *Magic: The Gathering* and *Hearthstone*.
