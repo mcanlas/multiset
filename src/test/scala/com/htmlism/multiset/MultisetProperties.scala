@@ -59,7 +59,7 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     (set - (element, subtractionCount))(element) == Math.max(set(element) - Math.max(subtractionCount, 0), 0)
   }
 
-  property("subtraction (contains guaranteed)") = forAll { (maybeSet: Multiset[A], element: A, include: PostiiveMemorySafeTraversableLength, subtractionCount: Int) =>
+  property("subtraction (contains guaranteed)") = forAll { (maybeSet: Multiset[A], element: A, include: PositiveMemorySafeTraversableLength, subtractionCount: Int) =>
     // the current generator for sets will be at most 1000 of mostly different elements
     // making the worst case scenario 1000 + 10_000, well under int max and still performant
     val withSet = maybeSet + (element, include.count)
