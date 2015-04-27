@@ -17,7 +17,8 @@ case class MemorySafeTraversableLength(count: Int) extends AnyVal
 object PositiveMemorySafeTraversableLength {
   implicit def arbitraryLowPositiveCount: Arbitrary[PositiveMemorySafeTraversableLength] =
     Arbitrary {
-      Gen.frequency(1 -> Gen.chooseNum(1, MemorySafeTraversableLength.MAXIMUM_LENGTH), 1-> Gen.negNum[Int]).map(PositiveMemorySafeTraversableLength.apply)
+      Gen.chooseNum(1, MemorySafeTraversableLength.MAXIMUM_LENGTH)
+        .map(PositiveMemorySafeTraversableLength.apply)
     }
 }
 
