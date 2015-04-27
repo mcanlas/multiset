@@ -8,7 +8,8 @@ object MemorySafeTraversableLength {
 
   implicit def arbitraryLowCount: Arbitrary[MemorySafeTraversableLength] =
     Arbitrary {
-      Gen.frequency(1 -> Gen.chooseNum(Int.MinValue, MAXIMUM_LENGTH), 1-> Gen.negNum[Int]).map(MemorySafeTraversableLength.apply)
+      Gen.chooseNum(Int.MinValue, MAXIMUM_LENGTH)
+        .map(MemorySafeTraversableLength.apply)
     }
 }
 
