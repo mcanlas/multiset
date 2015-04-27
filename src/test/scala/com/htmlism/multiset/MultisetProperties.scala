@@ -1,86 +1,148 @@
 package com.htmlism.multiset
 
+import scala.collection.generic.CanBuildFrom
+import scala.collection.mutable
+
+import org.scalacheck.Prop.{ forAll, BooleanOperators }
 import org.scalacheck.Properties
 
-class MultisetProperties extends Properties("Multiset") {
+abstract class MultisetLikeProperties(name: String) extends Properties(name) {
+  implicit def cbf: CanBuildFrom[Nothing, A, Multiset[A]]
+
   type A = Char
 
-  import org.scalacheck.Prop.{ forAll, BooleanOperators }
+  def fromElements(elements: Seq[A]): Multiset[A]
 
-  property("sequence construction") = forAll { (elements: Seq[A]) =>
-    Multiset(elements: _*).size == elements.size
+  def builder: mutable.Builder[A, Multiset[A]]
+
+  property("building implicitly") = forAll { (set: Multiset[A]) =>
+    (set ++ set).size == set.size * 2
   }
 
-  property("count construction") = forAll { counts: Seq[(A, Int)] =>
-    Multiset.withCounts(counts: _*).size == counts.toMap.values.filter(_ > 0).sum
+  property("building and clearing") = forAll { (elements: Seq[A]) =>
+    val b = builder
+
+    elements.foreach { b += _ }
+    b.clear()
+
+    b.result().isEmpty
   }
 
-  property("iteration") = forAll { (elements: Seq[A]) =>
-    Multiset(elements: _*).iterator.toList.sorted == elements.sorted
+  property("multiplicity") = forAll { (element: A, lowCount: MemorySafeTraversableLength) =>
+    val count = lowCount.count
+
+    val b = builder
+
+    for (_ <- 1 to count)
+      b += element
+
+    b.result()(element) == (if (count > 0) count else 0)
   }
 
-  property("containment") = forAll { (value: A) =>
-    Multiset()(value) == 0 && Multiset(value)(value) == 1
+  property("containment") = forAll { (elements: Seq[A]) =>
+    val set = fromElements(elements)
+
+    elements.toSet.forall(set.contains)
   }
 
   property("uniqueness") = forAll { (elements: Seq[A]) =>
-    Multiset(elements: _*).elements == elements.toSet
+    fromElements(elements).elements == elements.toSet
   }
 
-  property("maximum") = forAll { (counts: Seq[(A, Int)], maximum: Int) =>
-    (maximum >= 0 && maximum < (Int.MaxValue / 100)) ==>
-      (Multiset.withCounts(counts: _*).withMaximum(maximum).size <= counts.toMap.count(c => c._2 > 0) * maximum)
+  property("addition") = forAll { (set: Multiset[A], element: A, lowCount: MemorySafeTraversableLength) =>
+    val count = lowCount.count
+
+    (set + (element, count))(element) == set(element) + Math.max(count, 0)
   }
 
-  property("without") = forAll { (element: A, count: Int) =>
-    val emptyWithout = Multiset().without(element) == Multiset()
-    val withWithout  = Multiset.withCounts(element -> count).without(element) == Multiset()
-
-    emptyWithout && withWithout
+  property("subtraction") = forAll { (set: Multiset[A], element: A, subtractionCount: Int) =>
+    (set - (element, subtractionCount))(element) == Math.max(set(element) - Math.max(subtractionCount, 0), 0)
   }
 
-  property("union") = forAll { (firstElement: A, secondElement: A, count: Int) =>
-    val firstSet  = Multiset.withCounts(firstElement -> count)
-    val secondSet = Multiset.withCounts(firstElement -> count, secondElement -> count)
+  property("subtraction (contains guaranteed)") = forAll { (maybeSet: Multiset[A], element: A, include: PostiiveMemorySafeTraversableLength, subtractionCount: Int) =>
+    // the current generator for sets will be at most 1000 of mostly different elements
+    // making the worst case scenario 1000 + 10_000, well under int max and still performant
+    val withSet = maybeSet + (element, include.count)
 
-    val union = firstSet ++ secondSet
-
-    val effectiveCount = if (count < 0) 0 else count
-
-    (count < Int.MaxValue / 2) ==>
-      (union(firstElement) == effectiveCount * 2) &&
-        (union(secondElement) == effectiveCount)
+    (withSet - (element, subtractionCount))(element) == Math.max(withSet(element) - Math.max(subtractionCount, 0), 0)
   }
 
-  property("combinations") = forAll { (elements: Seq[A], n: Int) =>
-    val combinations = Multiset(elements: _*).combinations(n)
+  property("without") = forAll { (someSet: Multiset[A], element: A) =>
+    val withSet = someSet + element
 
-    if (n > elements.length || n < 0)
+    someSet.without(element) == withSet.without(element)
+  }
+
+  property("maximum") = forAll { (set: Multiset[A], maximum: Int) =>
+    val setWithMaximum = set.withMaximum(maximum)
+    val ceiling = Math.max(maximum, 0)
+
+    set.elements.forall(e => setWithMaximum(e) <= ceiling)
+  }
+
+  property("combinations") = forAll { (set: Multiset[A], n: Int) =>
+    val combinations = set.combinations(n)
+
+    if (n < 0)
+      combinations.size == 0
+    else if (n == 0)
+      combinations.toSeq == Seq(Multiset.empty)
+    else if (n > set.size)
       combinations.isEmpty
+    else if (n == set.size)
+      combinations.toSeq == Seq(set)
     else
       combinations.nonEmpty
   }
 
-  property("to string") = forAll { someElements: Seq[A] =>
-    val set = Multiset(someElements: _*)
-    val string = set.toString()
+  property("value equality") = forAll { (elements: Seq[A]) =>
+    val a, b = fromElements(elements)
 
-    val containsAll = set.elements.foldLeft(true) { (acc, e) =>
-      val n = set(e)
-      val contains = string.contains(s"$e -> $n")
-
-      acc && contains
-    }
-
-    val commaOk =
-      if (set.elements.size < 2)
-        true
-      else
-        ", ".r.findAllIn(string).length == set.elements.size - 1
-
-    ("starts with" |: string.startsWith("Multiset(")) &&
-      ("ends with" |: string.endsWith(")")) &&
-      ("contains"  |: containsAll) &&
-      ("commas"    |: commaOk)
+    ("equals" |: a == b) &&
+      ("hashcode" |: a.hashCode == b.hashCode)
   }
+}
+
+class MultisetProperties extends MultisetLikeProperties("Multiset") {
+  def cbf: CanBuildFrom[Nothing, A, Multiset[A]] = Multiset.canBuildFrom[A]
+
+  def fromElements(elements: Seq[A]) = Multiset(elements: _*)
+
+  def builder = Multiset.newBuilder
+
+  import org.scalacheck.Prop.forAll
+
+  property("concrete value equality") = forAll { (elements: Seq[A]) =>
+    MapMultiset(elements: _*) == new SeqMultiset(elements)
+  }
+}
+
+class MapMultisetProperties extends MultisetLikeProperties("MapMultiset") {
+  def cbf: CanBuildFrom[Nothing, A, Multiset[A]] = MapMultiset.canBuildFrom[A]
+
+  def fromElements(elements: Seq[A]) = MapMultiset(elements: _*)
+
+  def builder = MapMultiset.newBuilder
+
+  property("overflow detection") = forAll { (firstCount: Int, secondCount: Int) =>
+    val firstNormal  = Math.max(firstCount,  0)
+    val secondNormal = Math.max(secondCount, 0)
+
+    try {
+      MapMultiset.fromCounts(Map('apple -> firstNormal)) + ('apple, secondNormal)
+
+      true
+    } catch {
+      case _: ArithmeticException => true
+      case _: Throwable => false
+    }
+  }
+}
+
+class SeqMultisetProperties extends MultisetLikeProperties("SeqMultiset") {
+  def cbf: CanBuildFrom[Nothing, A, Multiset[A]] = SeqMultiset.canBuildFrom[A]
+
+  def fromElements(elements: Seq[A]) = new SeqMultiset(elements)
+
+  def builder = SeqMultiset.newBuilder
 }

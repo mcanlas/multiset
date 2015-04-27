@@ -1,22 +1,68 @@
 package com.htmlism.multiset
 
-import scala.collection.generic.GenericCompanion
 import scala.collection.mutable
+import scala.collection.generic.{ GenericCompanion, GenericTraversableTemplate }
 
-object SeqMultiset extends GenericCompanion[SeqMultiset] {
-  def newBuilder[A] = new mutable.Builder[A, SeqMultiset[A]] {
-    private val elements = mutable.ListBuffer[A]()
+/**
+ * A factory for multisets backed by sequences. This object extends Scala's collections framework and thus supports common construction
+ * methods.
+ *
+ * {{{
+ * val cities = SeqMultiset('NewYork, 'NewYork, 'London)
+ *
+ * val empty = SeqMultiset.empty
+ * }}}
+ */
 
-    def +=(elem: A) = { elements += elem; this }
+object SeqMultiset extends MultisetFactory[SeqMultiset] {
+  implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
 
-    def result() = new SeqMultiset(elements)
-
-    def clear() = elements.clear()
-  }
+  def newBuilder[A] = new SeqMultisetBuilder[A]
 }
 
-class SeqMultiset[A](elements: Seq[A]) extends MultisetNew[A] {
-  def apply(v1: A) = ???
+/**
+ * A multiset backed by a sequence. Additional elements will cause the underlying sequence to grow, making this
+ * implementation sensitive to issues of scale.
+ *
+ * Accessing the multiplicity of a member is neither fast nor cheap. Each call will incur one traversal on the backing
+ * sequence.
+ *
+ * Iteration will match the building order of the underlying sequence.
+ *
+ * @param elems A sequence of members
+ * @tparam A The type of each member of the set
+ */
 
-  def iterator = elements.iterator
+class SeqMultiset[A](elems: Seq[A])
+  extends Multiset[A]
+  with GenericTraversableTemplate[A, SeqMultiset]
+  with MultisetLike[A, SeqMultiset[A]]
+{
+  def count(element: A): Int = elems.count(_ == element)
+
+  def contains(element: A): Boolean = elems.contains(element)
+
+  def iterator: Iterator[A] = elems.iterator
+
+  override val size: Int = elems.length
+
+  override def companion: GenericCompanion[SeqMultiset] = SeqMultiset
+
+  override def hashCode(): Int = elems.hashCode()
+}
+
+/**
+ * A builder for multisets backed by a sequence.
+ *
+ * @tparam A The type of the members in the multiset
+ */
+
+class SeqMultisetBuilder[A] extends mutable.Builder[A, SeqMultiset[A]] {
+  private val elements = mutable.ListBuffer[A]()
+
+  def +=(elem: A) = { elements += elem; this }
+
+  def result() = new SeqMultiset(elements)
+
+  def clear() = elements.clear()
 }

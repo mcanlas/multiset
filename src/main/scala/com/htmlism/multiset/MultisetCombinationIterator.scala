@@ -77,6 +77,6 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
   }
 
   private def reloadSubIterator() = {
-    subIterator = Some(new MultisetCombinationIterator(remainingSet, choose, requiredSet ++ Multiset.withCounts(currentElement -> count)))
+    subIterator = Some(new MultisetCombinationIterator(remainingSet, choose, requiredSet + (currentElement, count)))
   }
 }
