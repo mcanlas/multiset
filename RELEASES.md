@@ -1,3 +1,9 @@
+## 0.100.0
+
+* complete overhaul
+* more idiomatic integration with the collections framework
+* additional sequence-backed concrete class
+
 ## 0.1.0
 
 * made elements return type more specific
