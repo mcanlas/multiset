@@ -72,7 +72,7 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
     }
   }
 
-  override val size: Int = counts.values.sum
+  override lazy val size: Int = counts.values.sum
 
   override def elements: Set[A] = counts.keys.toSet
 

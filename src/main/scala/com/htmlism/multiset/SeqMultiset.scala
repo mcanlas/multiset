@@ -44,7 +44,7 @@ class SeqMultiset[A](elems: Seq[A])
 
   def iterator: Iterator[A] = elems.iterator
 
-  override val size: Int = elems.length
+  override lazy val size: Int = elems.length
 
   override def companion: GenericCompanion[SeqMultiset] = SeqMultiset
 
