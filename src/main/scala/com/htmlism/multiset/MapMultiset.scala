@@ -37,7 +37,7 @@ object MapMultiset extends MultisetFactory[MapMultiset] {
 
 /**
  * A multiset backed by a map. The addition of elements to the set will merely increment each element's multiplicity,
- * represented by an `Int`. Thus, this collection scales as well as the elements are redundant.
+ * represented by an `Int`. Thus, this collection scales well as existing elements are added.
  *
  * Accessing the multiplicity of a member is meant to be fast, though its performance will ultimately be tied to the
  * implementation of the backing map. Scala's default map implementation is a hash map, which does provide fast lookup.
