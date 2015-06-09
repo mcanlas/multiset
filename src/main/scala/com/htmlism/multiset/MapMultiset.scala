@@ -115,8 +115,6 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
     }
 
   override def companion: GenericCompanion[MapMultiset] = MapMultiset
-
-  override def hashCode(): Int = counts.hashCode()
 }
 
 /**

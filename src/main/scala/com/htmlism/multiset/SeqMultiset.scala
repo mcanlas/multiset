@@ -47,8 +47,6 @@ class SeqMultiset[A](elems: Seq[A])
   override lazy val size: Int = elems.length
 
   override def companion: GenericCompanion[SeqMultiset] = SeqMultiset
-
-  override def hashCode(): Int = elems.hashCode()
 }
 
 /**

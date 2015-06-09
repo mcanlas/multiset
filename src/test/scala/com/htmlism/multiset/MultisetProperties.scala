@@ -101,6 +101,14 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     ("equals" |: a == b) &&
       ("hashcode" |: a.hashCode == b.hashCode)
   }
+
+  property("value semantics across concrete types") = forAll { (elements: Seq[A]) =>
+    val m = MapMultiset(elements: _*)
+    val s = SeqMultiset(elements: _*)
+
+    ("equals" |: m == s) &&
+      ("hashcode" |: m.hashCode == s.hashCode)
+  }
 }
 
 class MultisetProperties extends MultisetLikeProperties("Multiset") {
