@@ -18,7 +18,7 @@ import scala.collection.generic.{ GenericTraversableTemplate, GenericCompanion }
 object Multiset extends MultisetFactory[Multiset] {
   implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
 
-  def newBuilder[A] = new MapMultisetBuilder[A]
+  def newBuilder[A]: MapMultisetBuilder[A] = new MapMultisetBuilder[A]
 }
 
 /**
@@ -52,7 +52,7 @@ trait Multiset[A]
    * @return Returns the multiplicity of the element is a member of this set, zero otherwise.
    */
 
-  def apply(element: A) = count(element)
+  def apply(element: A): Int = count(element)
 
   /**
    * Returns an iterator of n-combination multisets
@@ -73,7 +73,7 @@ trait Multiset[A]
 
   override def companion: GenericCompanion[Multiset] = Multiset
 
-  override def equals(that: Any) = that match {
+  override def equals(that: Any): Boolean = that match {
     case thatSet: Multiset[A] => countMap(this) == countMap(thatSet)
     case _ => false
   }

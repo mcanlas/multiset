@@ -17,7 +17,7 @@ import scala.collection.generic.{ GenericCompanion, GenericTraversableTemplate }
 object MapMultiset extends MultisetFactory[MapMultiset] {
   implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
 
-  def newBuilder[A] = new MapMultisetBuilder[A]
+  def newBuilder[A]: MapMultisetBuilder[A] = new MapMultisetBuilder[A]
 
   /**
    * Creates a map-backed multiset with the specified element counts.
@@ -60,7 +60,7 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
 
   def count(element: A): Int = if (contains(element)) counts(element) else 0
 
-  def contains(element: A) = counts.contains(element)
+  def contains(element: A): Boolean = counts.contains(element)
 
   def iterator: Iterator[A] = counts.iterator.flatMap { case (k, n)  =>
     new Iterator[A] {
@@ -126,7 +126,7 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
 class MapMultisetBuilder[A] extends mutable.Builder[A, MapMultiset[A]] {
   private val counts = mutable.Map[A, Int]().withDefaultValue(0)
 
-  def +=(elem: A) = {
+  def +=(elem: A): this.type = {
     val count = counts(elem)
 
     counts.update(elem, count + 1)
@@ -134,7 +134,7 @@ class MapMultisetBuilder[A] extends mutable.Builder[A, MapMultiset[A]] {
     this
   }
 
-  def result() = MapMultiset.fromCounts(counts)
+  def result(): MapMultiset[A] = MapMultiset.fromCounts(counts)
 
-  def clear() = counts.clear()
+  def clear(): Unit = counts.clear()
 }

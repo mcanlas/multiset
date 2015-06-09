@@ -17,7 +17,7 @@ import scala.collection.generic.{ GenericCompanion, GenericTraversableTemplate }
 object SeqMultiset extends MultisetFactory[SeqMultiset] {
   implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
 
-  def newBuilder[A] = new SeqMultisetBuilder[A]
+  def newBuilder[A]: SeqMultisetBuilder[A] = new SeqMultisetBuilder[A]
 }
 
 /**
@@ -58,9 +58,9 @@ class SeqMultiset[A](elems: Seq[A])
 class SeqMultisetBuilder[A] extends mutable.Builder[A, SeqMultiset[A]] {
   private val elements = mutable.ListBuffer[A]()
 
-  def +=(elem: A) = { elements += elem; this }
+  def +=(elem: A): this.type = { elements += elem; this }
 
-  def result() = new SeqMultiset(elements)
+  def result(): SeqMultiset[A] = new SeqMultiset(elements)
 
-  def clear() = elements.clear()
+  def clear(): Unit = elements.clear()
 }
