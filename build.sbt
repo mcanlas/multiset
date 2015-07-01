@@ -30,3 +30,5 @@ ReleaseKeys.releaseProcess := Seq(
   setNextVersion,
   commitNextVersion,
   pushChanges)
+
+scalariformSettings
