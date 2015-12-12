@@ -1,10 +1,9 @@
 package com.htmlism.multiset
 
 import scala.collection.generic.GenericTraversableTemplate
-import scala.language.higherKinds
-import scala.language.implicitConversions
+import scala.language.{ higherKinds, implicitConversions }
 
-import org.scalacheck.Prop.{ forAll, BooleanOperators }
+import org.scalacheck.Prop.{ BooleanOperators, forAll }
 import org.scalacheck.Properties
 
 abstract class MultisetLikeFactoryProperties[CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]](factory: MultisetFactory[CC]) extends Properties(factory.getClass + " factory") {

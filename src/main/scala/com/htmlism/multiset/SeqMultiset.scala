@@ -1,7 +1,7 @@
 package com.htmlism.multiset
 
-import scala.collection.mutable
 import scala.collection.generic.{ GenericCompanion, GenericTraversableTemplate }
+import scala.collection.mutable
 
 /**
  * A factory for multisets backed by sequences. This object extends Scala's collections framework and thus supports common construction

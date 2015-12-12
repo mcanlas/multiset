@@ -1,7 +1,6 @@
 package com.htmlism.multiset
 
-import scala.collection.IterableLike
-import scala.collection.mutable
+import scala.collection.{ IterableLike, mutable }
 
 /**
  * Blah blah blah
