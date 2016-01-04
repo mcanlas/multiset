@@ -84,7 +84,7 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     val combinations = set.combinations(n)
 
     if (n < 0)
-      combinations.size == 0
+      combinations.isEmpty
     else if (n == 0)
       combinations.toSeq == Seq(Multiset.empty)
     else if (n > set.size)
