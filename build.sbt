@@ -14,9 +14,9 @@ libraryDependencies += "org.specs2" %% "specs2-core" % "3.7.1" % "test"
 
 libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.0" % "test"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.7")
+crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 releaseSettings
 
