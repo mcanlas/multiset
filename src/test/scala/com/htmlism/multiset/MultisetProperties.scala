@@ -2,6 +2,7 @@ package com.htmlism.multiset
 
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
+import scala.util._
 
 import org.scalacheck.Prop.{ BooleanOperators, forAll }
 import org.scalacheck.Properties
@@ -133,16 +134,18 @@ class MapMultisetProperties extends MultisetLikeProperties("MapMultiset") {
   def builder = MapMultiset.newBuilder
 
   property("overflow detection") = forAll { (firstCount: Int, secondCount: Int) =>
-    val firstNormal  = Math.max(firstCount,  0)
-    val secondNormal = Math.max(secondCount, 0)
+    val attempt = Try {
+      val baseMap = MapMultiset.fromCounts(Map('apple -> firstCount))
 
-    try {
-      MapMultiset.fromCounts(Map('apple -> firstNormal)) + ('apple, secondNormal)
+      baseMap + ('apple, secondCount)
+    }
 
-      true
-    } catch {
-      case _: ArithmeticException => true
-      case _: Throwable => false
+    attempt match {
+      case Success(_) => true
+      case Failure(e) =>
+        e match {
+          case _: ArithmeticException => true
+        }
     }
   }
 }
