@@ -58,7 +58,11 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
 {
   assert(!counts.exists(_._2 < 1))
 
-  def count(element: A): Int = if (contains(element)) counts(element) else 0
+  def count(element: A): Int =
+    if (contains(element))
+      counts(element)
+    else
+      0
 
   def contains(element: A): Boolean = counts.contains(element)
 
