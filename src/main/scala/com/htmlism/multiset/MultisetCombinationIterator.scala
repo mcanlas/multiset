@@ -21,7 +21,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
   private var remainingSet = source withMaximum choose - requiredSet.size
   private var currentElement: A = _
   private var count = 0
-  private var subIterator = Option.empty[MultisetCombinationIterator[A]]
+  private var subIterator: MultisetCombinationIterator[A] = _
 
   var hasNext = requiredSet.size <= choose && remainingSet.size + requiredSet.size >= choose
 
@@ -29,7 +29,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
     shiftAndReload()
 
   def next(): Multiset[A] = if (hasNext) {
-    subIterator match {
+    Option(subIterator) match {
       case Some(iterator) =>
         if (iterator.hasNext) {
           iterator.next()
@@ -45,10 +45,8 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
           assert(count + remainingSet.size + requiredSet.size >= choose)
 
           // subIterator must be re-evaluated because it may have been modified since the case match.
-          val latestSub = subIterator.getOrElse(throw new IllegalStateException("sub iterator must be available"))
-
-          val next = latestSub.next()
-          hasNext = latestSub.hasNext || count + remainingSet.size + requiredSet.size > choose
+          val next = subIterator.next()
+          hasNext = subIterator.hasNext || count + remainingSet.size + requiredSet.size > choose
 
           next
         }
@@ -78,6 +76,6 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
   }
 
   private def reloadSubIterator() = {
-    subIterator = Some(new MultisetCombinationIterator(remainingSet, choose, requiredSet + (currentElement, count)))
+    subIterator = new MultisetCombinationIterator(remainingSet, choose, requiredSet + (currentElement, count))
   }
 }
