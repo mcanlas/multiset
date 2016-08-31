@@ -119,8 +119,6 @@ class MultisetProperties extends MultisetLikeProperties("Multiset") {
 
   def builder = Multiset.newBuilder
 
-  import org.scalacheck.Prop.forAll
-
   property("concrete value equality") = forAll { (elements: Seq[A]) =>
     MapMultiset(elements: _*) == new SeqMultiset(elements)
   }
