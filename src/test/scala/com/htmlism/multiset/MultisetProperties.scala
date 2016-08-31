@@ -145,6 +145,7 @@ class MapMultisetProperties extends MultisetLikeProperties("MapMultiset") {
       case Failure(e) =>
         e match {
           case _: ArithmeticException => true
+          case x => throw x
         }
     }
   }
