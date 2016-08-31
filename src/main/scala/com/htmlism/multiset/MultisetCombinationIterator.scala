@@ -45,9 +45,10 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
           assert(count + remainingSet.size + requiredSet.size >= choose)
 
           // subIterator must be re-evaluated because it may have been modified since the case match.
-          // don't change `subIterator.get` to `iterator`!
-          val next = subIterator.get.next()
-          hasNext = subIterator.get.hasNext || count + remainingSet.size + requiredSet.size > choose
+          val latestSub = subIterator.getOrElse(throw new IllegalStateException("sub iterator must be available"))
+
+          val next = latestSub.next()
+          hasNext = latestSub.hasNext || count + remainingSet.size + requiredSet.size > choose
 
           next
         }
