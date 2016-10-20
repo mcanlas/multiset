@@ -56,7 +56,7 @@ class MapMultiset[A] private(counts: collection.Map[A, Int])
   with GenericTraversableTemplate[A, MapMultiset]
   with MultisetLike[A, MapMultiset[A]]
 {
-  assert(!counts.exists(_._2 < 1))
+  assert(!counts.values.exists(_ < 1))
 
   def count(element: A): Int =
     if (contains(element))
