@@ -80,7 +80,7 @@ trait Multiset[A]
 
   override def hashCode: Int = countMap(this).hashCode()
 
-  private def countMap(set: Multiset[A]) = {
+  private[this] def countMap(set: Multiset[A]) = {
     val counts = collection.mutable.Map[A, Int]().withDefaultValue(0)
 
     for (e <- set)

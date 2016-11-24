@@ -66,7 +66,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
     throw new UnsupportedOperationException("cannot generate a new set with an empty iterator")
   }
 
-  private def shiftAndReload() = {
+  private[this] def shiftAndReload() = {
     currentElement = remainingSet.elements.head
     count = remainingSet(currentElement)
 
@@ -75,7 +75,7 @@ class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredS
     reloadSubIterator()
   }
 
-  private def reloadSubIterator() = {
+  private[this] def reloadSubIterator() = {
     subIterator = new MultisetCombinationIterator(remainingSet, choose, requiredSet + (currentElement, count))
   }
 }
