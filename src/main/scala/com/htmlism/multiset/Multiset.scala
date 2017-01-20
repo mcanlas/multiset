@@ -16,7 +16,7 @@ import scala.collection.generic.{ GenericCompanion, GenericTraversableTemplate }
  */
 
 object Multiset extends MultisetFactory[Multiset] {
-  implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
+  implicit def canBuildFrom[A]: CanBuildMultiset[A] = new GenericCanBuildFrom[A]
 
   def newBuilder[A]: MapMultisetBuilder[A] = new MapMultisetBuilder[A]
 }

@@ -1,6 +1,6 @@
 package com.htmlism.multiset
 
-import scala.collection.generic.{ GenericTraversableTemplate, TraversableFactory }
+import scala.collection.generic._
 import scala.language.higherKinds
 
 /**
@@ -14,6 +14,8 @@ import scala.language.higherKinds
  */
 
 trait MultisetFactory[CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]] extends TraversableFactory[CC] {
+  type CanBuildMultiset[A] = CanBuildFrom[CC[_], A, CC[A]]
+
   /**
    * Creates a multiset with the specified element counts.
    *

@@ -15,7 +15,7 @@ import scala.collection.mutable
  */
 
 object SeqMultiset extends MultisetFactory[SeqMultiset] {
-  implicit def canBuildFrom[A]: GenericCanBuildFrom[A] = ReusableCBF.asInstanceOf[GenericCanBuildFrom[A]]
+  implicit def canBuildFrom[A]: CanBuildMultiset[A] = new GenericCanBuildFrom[A]
 
   def newBuilder[A]: SeqMultisetBuilder[A] = new SeqMultisetBuilder[A]
 }
