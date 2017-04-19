@@ -14,9 +14,9 @@ libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.9" % "test"
 
 libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2"
 
-crossScalaVersions := Seq("2.10.6", "2.11.10", "2.12.1")
+crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
 
 releaseProcess := Seq(
   checkSnapshotDependencies,
