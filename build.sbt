@@ -4,8 +4,6 @@ name := "multiset"
 
 organization := "com.htmlism"
 
-autoAPIMappings := true
-
 initialCommands in console := "import com.htmlism.multiset._"
 
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases" // for specs2
