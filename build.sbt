@@ -10,7 +10,7 @@ resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases" //
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "3.9.5" % "test"
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
 
 scalaVersion := "2.12.6"
 
