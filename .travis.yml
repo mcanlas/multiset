@@ -8,6 +8,7 @@ scala:
 env:
   - JDK=oraclejdk7
   - JDK=oraclejdk8
+  - JDK=oraclejdk9
 
 before_script:
   - jdk_switcher use $JDK
