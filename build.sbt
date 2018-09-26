@@ -16,15 +16,14 @@ scalaVersion := "2.12.6"
 
 crossScalaVersions := Seq("2.11.12", "2.12.6")
 
-releaseProcess := Seq(
-  checkSnapshotDependencies,
-  inquireVersions,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  setNextVersion,
-  commitNextVersion,
-  pushChanges)
+releaseProcess := Seq(checkSnapshotDependencies,
+                      inquireVersions,
+                      runTest,
+                      setReleaseVersion,
+                      commitReleaseVersion,
+                      tagRelease,
+                      setNextVersion,
+                      commitNextVersion,
+                      pushChanges)
 
 scalafmtOnCompile := true
