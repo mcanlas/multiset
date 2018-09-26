@@ -26,3 +26,5 @@ releaseProcess := Seq(
   setNextVersion,
   commitNextVersion,
   pushChanges)
+
+scalafmtOnCompile := true
