@@ -3,7 +3,7 @@ package com.htmlism.multiset
 import org.specs2.mutable.Specification
 
 class MultisetCombinationIteratorSpec extends Specification {
-  private val empty = Multiset.empty[Int]
+  private val empty   = Multiset.empty[Int]
   private val someSet = Multiset(5, 4, 7)
 
   "An empty iterator" should {
@@ -45,26 +45,28 @@ class MultisetCombinationIteratorSpec extends Specification {
       Multiset(7, 7, 7),
       Multiset(7, 7, 9),
       Multiset(7, 9, 9),
-      Multiset(9, 9, 9))
+      Multiset(9, 9, 9)
+    )
 
     "generate the right stuff" in {
-      new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(answers)
+      new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(
+        answers)
     }
   }
 
   "An iterator with a given set, choose 4" should {
     val set = Multiset(4, 4, 7, 7, 3, 3)
 
-    val answers = List(
-      Multiset(4, 4, 7, 7),
-      Multiset(4, 4, 7, 3),
-      Multiset(4, 4, 3, 3),
-      Multiset(4, 7, 7, 3),
-      Multiset(4, 7, 3, 3),
-      Multiset(7, 7, 3, 3))
+    val answers = List(Multiset(4, 4, 7, 7),
+                       Multiset(4, 4, 7, 3),
+                       Multiset(4, 4, 3, 3),
+                       Multiset(4, 7, 7, 3),
+                       Multiset(4, 7, 3, 3),
+                       Multiset(7, 7, 3, 3))
 
     "generate the right stuff" in {
-      new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(answers)
+      new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(
+        answers)
     }
   }
 }

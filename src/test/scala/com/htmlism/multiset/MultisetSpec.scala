@@ -20,7 +20,7 @@ class MapMultisetSpec extends Specification {
   "A map-backed multiset" should {
     "prevent integer overflow" in {
       {
-        MapMultiset() +('apple, Int.MaxValue) + 'apple
+        MapMultiset() + ('apple, Int.MaxValue) + 'apple
       } must throwA[ArithmeticException]
     }
   }
