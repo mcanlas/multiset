@@ -29,16 +29,15 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     b.result().isEmpty
   }
 
-  property("multiplicity") = forAll {
-    (element: A, lowCount: MemorySafeTraversableLength) =>
-      val count = lowCount.count
+  property("multiplicity") = forAll { (element: A, lowCount: MemorySafeTraversableLength) =>
+    val count = lowCount.count
 
-      val b = builder
+    val b = builder
 
-      for (_ <- 1 to count)
-        b += element
+    for (_ <- 1 to count)
+      b += element
 
-      b.result()(element) == (if (count > 0) count else 0)
+    b.result()(element) == (if (count > 0) count else 0)
   }
 
   property("containment") = forAll { (elements: Seq[A]) =>
@@ -51,32 +50,23 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     fromElements(elements).elements == elements.toSet
   }
 
-  property("addition") = forAll {
-    (set: Multiset[A], element: A, lowCount: MemorySafeTraversableLength) =>
-      val count = lowCount.count
+  property("addition") = forAll { (set: Multiset[A], element: A, lowCount: MemorySafeTraversableLength) =>
+    val count = lowCount.count
 
-      (set + (element, count))(element) == set(element) + Math.max(count, 0)
+    (set + (element, count))(element) == set(element) + Math.max(count, 0)
   }
 
-  property("subtraction") = forAll {
-    (set: Multiset[A], element: A, subtractionCount: Int) =>
-      (set - (element, subtractionCount))(element) == Math.max(
-        set(element) - Math.max(subtractionCount, 0),
-        0)
+  property("subtraction") = forAll { (set: Multiset[A], element: A, subtractionCount: Int) =>
+    (set - (element, subtractionCount))(element) == Math.max(set(element) - Math.max(subtractionCount, 0), 0)
   }
 
   property("subtraction (contains guaranteed)") = forAll {
-    (maybeSet: Multiset[A],
-     element: A,
-     include: PositiveMemorySafeTraversableLength,
-     subtractionCount: Int) =>
+    (maybeSet: Multiset[A], element: A, include: PositiveMemorySafeTraversableLength, subtractionCount: Int) =>
       // the current generator for sets will be at most 1000 of mostly different elements
       // making the worst case scenario 1000 + 10_000, well under int max and still performant
       val withSet = maybeSet + (element, include.count)
 
-      (withSet - (element, subtractionCount))(element) == Math.max(
-        withSet(element) - Math.max(subtractionCount, 0),
-        0)
+      (withSet - (element, subtractionCount))(element) == Math.max(withSet(element) - Math.max(subtractionCount, 0), 0)
   }
 
   property("without") = forAll { (someSet: Multiset[A], element: A) =>
@@ -114,13 +104,12 @@ abstract class MultisetLikeProperties(name: String) extends Properties(name) {
     ("hashcode" |: a.hashCode == b.hashCode)
   }
 
-  property("value semantics across concrete types") = forAll {
-    (elements: Seq[A]) =>
-      val m = MapMultiset(elements: _*)
-      val s = SeqMultiset(elements: _*)
+  property("value semantics across concrete types") = forAll { (elements: Seq[A]) =>
+    val m = MapMultiset(elements: _*)
+    val s = SeqMultiset(elements: _*)
 
-      ("equals" |: m == s) &&
-      ("hashcode" |: m.hashCode == s.hashCode)
+    ("equals" |: m == s) &&
+    ("hashcode" |: m.hashCode == s.hashCode)
   }
 }
 
@@ -143,22 +132,21 @@ class MapMultisetProperties extends MultisetLikeProperties("MapMultiset") {
 
   def builder = MapMultiset.newBuilder
 
-  property("overflow detection") = forAll {
-    (firstCount: Int, secondCount: Int) =>
-      val attempt = Try {
-        val baseMap = MapMultiset.fromCounts(Map('apple -> firstCount))
+  property("overflow detection") = forAll { (firstCount: Int, secondCount: Int) =>
+    val attempt = Try {
+      val baseMap = MapMultiset.fromCounts(Map('apple -> firstCount))
 
-        baseMap + ('apple, secondCount)
-      }
+      baseMap + ('apple, secondCount)
+    }
 
-      attempt match {
-        case Success(_) => true
-        case Failure(e) =>
-          e match {
-            case _: ArithmeticException => true
-            case x                      => throw x
-          }
-      }
+    attempt match {
+      case Success(_) => true
+      case Failure(e) =>
+        e match {
+          case _: ArithmeticException => true
+          case x                      => throw x
+        }
+    }
   }
 }
 

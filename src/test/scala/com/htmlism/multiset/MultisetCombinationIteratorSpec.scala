@@ -49,8 +49,7 @@ class MultisetCombinationIteratorSpec extends Specification {
     )
 
     "generate the right stuff" in {
-      new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(
-        answers)
+      new MultisetCombinationIterator(bigSet, 3).toSeq must containTheSameElementsAs(answers)
     }
   }
 
@@ -65,8 +64,7 @@ class MultisetCombinationIteratorSpec extends Specification {
                        Multiset(7, 7, 3, 3))
 
     "generate the right stuff" in {
-      new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(
-        answers)
+      new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(answers)
     }
   }
 }

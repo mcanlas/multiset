@@ -12,9 +12,7 @@ import scala.language.higherKinds
   *
   * @tparam CC The specific type of multiset that this factory constructs
   */
-trait MultisetFactory[
-    CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]]
-    extends TraversableFactory[CC] {
+trait MultisetFactory[CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]] extends TraversableFactory[CC] {
   type CanBuildMultiset[A] = CanBuildFrom[CC[_], A, CC[A]]
 
   /**

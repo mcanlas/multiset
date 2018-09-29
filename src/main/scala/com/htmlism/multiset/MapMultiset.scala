@@ -83,8 +83,7 @@ class MapMultiset[A] private (counts: collection.Map[A, Int])
       val newCount = oldCount + n
 
       if (newCount <= oldCount)
-        throw new ArithmeticException(
-          s"cannot add $n to $oldCount without overflowing")
+        throw new ArithmeticException(s"cannot add $n to $oldCount without overflowing")
 
       new MapMultiset(counts + (element -> newCount))
     } else

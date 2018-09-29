@@ -16,10 +16,7 @@ package com.htmlism.multiset
   * @param requiredSet A multiset to be included with each combination
   * @tparam A The type of the multiset's elements
   */
-class MultisetCombinationIterator[A](source: Multiset[A],
-                                     choose: Int,
-                                     requiredSet: Multiset[A] =
-                                       Multiset.empty[A])
+class MultisetCombinationIterator[A](source: Multiset[A], choose: Int, requiredSet: Multiset[A] = Multiset.empty[A])
     extends Iterator[Multiset[A]] {
   private var remainingSet                                = source withMaximum choose - requiredSet.size
   private var currentElement: A                           = _
@@ -67,8 +64,7 @@ class MultisetCombinationIterator[A](source: Multiset[A],
           }
       }
     } else {
-      throw new UnsupportedOperationException(
-        "cannot generate a new set with an empty iterator")
+      throw new UnsupportedOperationException("cannot generate a new set with an empty iterator")
     }
 
   private[this] def shiftAndReload() = {
@@ -81,9 +77,6 @@ class MultisetCombinationIterator[A](source: Multiset[A],
   }
 
   private[this] def reloadSubIterator() = {
-    subIterator = new MultisetCombinationIterator(
-      remainingSet,
-      choose,
-      requiredSet + (currentElement, count))
+    subIterator = new MultisetCombinationIterator(remainingSet, choose, requiredSet + (currentElement, count))
   }
 }
