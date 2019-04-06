@@ -27,7 +27,7 @@ object MapMultiset extends MultisetFactory[MapMultiset] {
     * @tparam A The type of the multiset's elements
     */
   def fromCounts[A](counts: collection.Map[A, Int]): MapMultiset[A] = {
-    val positiveCounts = counts.filter { case (k, count) => count > 0 }
+    val positiveCounts = counts.filter { case (_, count) => count > 0 }
 
     new MapMultiset(positiveCounts)
   }
