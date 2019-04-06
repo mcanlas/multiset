@@ -1,7 +1,6 @@
 package com.htmlism.multiset
 
 import scala.collection.generic.GenericTraversableTemplate
-import scala.language.{higherKinds, implicitConversions}
 
 import org.scalacheck.Prop.{BooleanOperators, forAll}
 import org.scalacheck.Properties
