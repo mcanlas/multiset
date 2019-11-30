@@ -56,12 +56,14 @@ class MultisetCombinationIteratorSpec extends Specification {
   "An iterator with a given set, choose 4" should {
     val set = Multiset(4, 4, 7, 7, 3, 3)
 
-    val answers = List(Multiset(4, 4, 7, 7),
-                       Multiset(4, 4, 7, 3),
-                       Multiset(4, 4, 3, 3),
-                       Multiset(4, 7, 7, 3),
-                       Multiset(4, 7, 3, 3),
-                       Multiset(7, 7, 3, 3))
+    val answers = List(
+      Multiset(4, 4, 7, 7),
+      Multiset(4, 4, 7, 3),
+      Multiset(4, 4, 3, 3),
+      Multiset(4, 7, 7, 3),
+      Multiset(4, 7, 3, 3),
+      Multiset(7, 7, 3, 3)
+    )
 
     "generate the right stuff" in {
       new MultisetCombinationIterator(set, 4).toSeq must containTheSameElementsAs(answers)

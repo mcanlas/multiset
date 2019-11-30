@@ -6,8 +6,8 @@ import org.scalacheck.Prop.{BooleanOperators, forAll}
 import org.scalacheck.Properties
 
 abstract class MultisetLikeFactoryProperties[CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]](
-    factory: MultisetFactory[CC])
-    extends Properties(factory.getClass + " factory") {
+    factory: MultisetFactory[CC]
+) extends Properties(factory.getClass + " factory") {
   type X = Char
 
   property("count construction") = forAll { (wrapped: Seq[(X, MemorySafeTraversableLength)]) =>
