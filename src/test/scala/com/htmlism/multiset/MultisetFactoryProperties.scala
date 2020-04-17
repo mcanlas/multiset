@@ -2,7 +2,7 @@ package com.htmlism.multiset
 
 import scala.collection.generic.GenericTraversableTemplate
 
-import org.scalacheck.Prop.{BooleanOperators, forAll}
+import org.scalacheck.Prop.{propBoolean, forAll}
 import org.scalacheck.Properties
 
 abstract class MultisetLikeFactoryProperties[CC[X] <: Multiset[X] with GenericTraversableTemplate[X, CC]](
