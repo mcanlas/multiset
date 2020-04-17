@@ -8,7 +8,7 @@ initialCommands in console := "import com.htmlism.multiset._"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "4.9.3" % "test"
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.2" % "test"
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.3" % "test"
 
 scalaVersion := "2.12.11"
 
