@@ -62,16 +62,17 @@ class MapMultiset[A] private (counts: collection.Map[A, Int])
 
   def contains(element: A): Boolean = counts.contains(element)
 
-  def iterator: Iterator[A] = counts.iterator.flatMap {
-    case (k, n) =>
-      new Iterator[A] {
-        var remaining = n
+  def iterator: Iterator[A] =
+    counts.iterator.flatMap {
+      case (k, n) =>
+        new Iterator[A] {
+          var remaining = n
 
-        def hasNext = remaining > 0
+          def hasNext = remaining > 0
 
-        def next() = { remaining -= 1; k }
-      }
-  }
+          def next() = { remaining -= 1; k }
+        }
+    }
 
   override lazy val size: Int = counts.values.sum
 

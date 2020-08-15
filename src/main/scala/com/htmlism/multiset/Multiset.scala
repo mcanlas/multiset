@@ -70,10 +70,11 @@ trait Multiset[A]
 
   override def companion: GenericCompanion[Multiset] = Multiset
 
-  override def equals(that: Any): Boolean = that match {
-    case thatSet: Multiset[A] => countMap(this) == countMap(thatSet)
-    case _                    => false
-  }
+  override def equals(that: Any): Boolean =
+    that match {
+      case thatSet: Multiset[A] => countMap(this) == countMap(thatSet)
+      case _                    => false
+    }
 
   override def hashCode: Int = countMap(this).hashCode()
 
