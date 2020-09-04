@@ -1,6 +1,7 @@
 package com.htmlism.multiset
 
-import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 
 object MemorySafeTraversableLength {
   // the run-time of SeqMultiset tests is proportional with this value

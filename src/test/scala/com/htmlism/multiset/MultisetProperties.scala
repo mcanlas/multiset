@@ -4,7 +4,8 @@ import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
 import scala.util._
 
-import org.scalacheck.Prop.{propBoolean, forAll}
+import org.scalacheck.Prop.forAll
+import org.scalacheck.Prop.propBoolean
 import org.scalacheck.Properties
 
 abstract class MultisetLikeProperties(name: String) extends Properties(name) {
