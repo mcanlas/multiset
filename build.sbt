@@ -4,7 +4,7 @@ name := "multiset"
 
 organization := "com.htmlism"
 
-initialCommands in console := "import com.htmlism.multiset._"
+console / initialCommands := "import com.htmlism.multiset._"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "4.9.4" % "test"
 
