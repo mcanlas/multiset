@@ -28,4 +28,4 @@ jobs:
         key: scala
         
     - name: Run tests
-      run: sbt +test
+      run: sbt "+scalafixAll --check" +scalafmtCheck "+test"
