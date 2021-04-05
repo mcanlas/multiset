@@ -24,7 +24,8 @@ jobs:
       with:
         path: |
           ~/.sbt
-        key: const
+          ~/.cache/coursier/v1
+        key: scala
         
     - name: Run tests
       run: sbt +test
